@@ -1,0 +1,10 @@
+# Ignore les fichiers de configuration locaux
+*/settings.py
+*/local_settings.py
+
+# Ignore les fichiers statiques collectés
+*/staticfiles/
+
+# Ignore les fichiers de base de données
+db.sqlite3
+*.sqlite3

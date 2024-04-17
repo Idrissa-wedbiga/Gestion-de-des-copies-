@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %} Dashboard-Admin {% endblock %}
+
+{% block content %}
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Enseignant</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'userprincipale:index' %}">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard-Admin</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <div class="container mt-5">
+            <div class="container mt-5">
+                <h2>Gestion des enseignants</h2>
+
+                <!-- Boutons pour les opérations -->
+                <div class="row justify-content-start">
+                    <div class="col-auto">
+                        <a href="{% url 'userprincipale:ajouter' %}" class="btn btn-primary shadow">
+                            <i class="bi bi-plus"></i> Ajouter
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Tableau pour afficher les commandes en attente -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Matricule</th>
+                        <th>Nom</th>
+                        <th>Prenom(s)</th>
+                        <th>E-mail</th>
+                        <th>Spécialité</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Exemple de commande en attente -->
+                    <tr>
+                        <td>B00L2020</td>
+                        <td>BIKIENGA</td>
+                        <td>Moustapha</td>
+                        <td>romeosawadogo@yahoo.com</td>
+                        <td>Informaticien</td>
+                        <td>
+                            <a href="{% url 'userprincipale:editer' %}" class="btn btn-warning shadow">
+                                <i class="bi bi-pencil"></i></a>
+                            <a href="" class="btn btn-danger shadow">
+                                <i class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
+                    <!-- Autres commandes en attente peuvent être ajoutées ici -->
+                </tbody>
+            </table>
+        </div>
+
+    </main><!-- End #main -->
+
+{% endblock %}
