@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Envoyer-Sujet {% endblock %}
+
+{% block content %}
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'Enseignant:index'%}">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:login'%}">
+                <i class="bi bi-house-check"></i>
+                <span>Accueil</span>
+            </a>
+        </li><!-- End Components Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'Enseignant:Envoyer' %}">
+                <i class="bi bi-journal-text"></i>
+                <span>Envoyer Copies</span>
+            </a>
+        </li><!-- End Forms Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'Enseignant:Composer' %}">
+                <i class="bi bi-menu-button-wide"></i>
+                <span>Composer une évaluation</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="evenement.html">
+                <i class="bi bi-menu-button-wide"></i>
+                <span>Corriger une évaluation</span>
+            </a>
+        </li><!-- End Tables Nav -->
+
+        <li class="nav-heading">Pages</li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'Enseignant:enseigant_profile' %}">
+                <i class="bi bi-person"></i>
+                <span>Mon Profil</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
+
+    </ul>
+
+</aside><!-- End Sidebar-->
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h6><span class="d-none d-lg-block">Gestion des copies d'étudiants de l'Université Norbert ZONGO</span></h6>
+        
+        <h1>Enseignant de l'UNZ</h1>
+        <nav>
+            
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'Enseignant:index' %}">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard-Enseignant</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+        <section class="section profile">
+            <div class="container mt-5">
+                <div class="container mt-5">
+                    <h2> Envoyer une évaluation</h2>
+                    <form class=" p-4 shadow" style="width: 80%;">
+                        <div class="mb-3">
+                            <label for="nom" class="form-label">Fillière</label>
+                            <input type="text" name="category" class="form-control" id="nom" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="mail" class="form-label">Promotion</label>
+                            <input type="email" name="mail" class="form-control" id="mail" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="siege" class="form-label">Module</label>
+                            <input type="text" name="siege" class="form-control" id="siege" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre de copie</label>
+                            <input type="number" name="nombre" class="form-control" id="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="enseignant" class="form-label">Enseignant</label>
+                            <input type="text" name="enseignant" class="form-control" id="enseignant" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fileInput" class="form-label">Sélectionner un fichier :</label>
+                            <input type="file" class="form-control" id="fileInput" name="file">
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-warning shadow">
+                                <i class="bi bi-send-fill"></i> Envoyer</button>
+                        </div>
+                    </form>
+                  </div>
+        </section>
+                                           
+</main><!-- End #main -->
+
+{% endblock %}

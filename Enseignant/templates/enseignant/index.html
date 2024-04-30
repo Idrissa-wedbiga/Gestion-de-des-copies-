@@ -9,34 +9,34 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="index.html">
+            <a class="nav-link collapsed" href="{% url 'Enseignant:index'%}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="abonnés.html">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:login'%}">
                 <i class="bi bi-house-check"></i>
                 <span>Accueil</span>
             </a>
         </li><!-- End Components Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="promoteur.html">
+            <a class="nav-link collapsed" href="{% url 'Enseignant:Envoyer' %}">
                 <i class="bi bi-journal-text"></i>
                 <span>Envoyer Copies</span>
             </a>
         </li><!-- End Forms Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="evenement.html">
+            <a class="nav-link collapsed" href="{% url 'Enseignant:Composer' %}">
                 <i class="bi bi-menu-button-wide"></i>
                 <span>Composer une évaluation</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="evenement.html">
+            <a class="nav-link collapsed" href="{% url 'Enseignant:Corriger' %}">
                 <i class="bi bi-menu-button-wide"></i>
                 <span>Corriger une évaluation</span>
             </a>
@@ -45,7 +45,7 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="users-profile.html">
+            <a class="nav-link collapsed" href="{% url 'Enseignant:enseigant_profile' %}">
                 <i class="bi bi-person"></i>
                 <span>Mon Profil</span>
             </a>
@@ -64,7 +64,7 @@
         <nav>
             
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'userprincipale:login' %}">Accueil</a></li>
                 <li class="breadcrumb-item active">Dashboard-Enseignant</li>
             </ol>
         </nav>
@@ -160,7 +160,7 @@
                                             <th scope="col">Promotion | Niveau</th>
                                             <th scope="col">Modules</th>
                                             <th scope="col">Nombre de copies </th>
-                                            <th scope="col">Telechargement </th>
+                                            <th scope="col">Téléchargement </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -169,35 +169,35 @@
                                             <td>Statistique</td>
                                             
                                             <td>664</td>
-                                            <td><span class="badge bg-success">Telecharger</span></td>
+                                            <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
                                         </tr>
                                         <tr>
                                             <td >SVT-2022/2023 | S2</td>
                                             <td>Algèbre</td>
                                             
                                             <td>447</td>
-                                            <td><span class="badge bg-success">Telecharger</span></td>
+                                            <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
                                         </tr>
                                         <tr>
                                             <td >SVT-2022/2023 | S2</td>
                                             <td>Analyse</td>
                                             
                                             <td>1147</td>
-                                            <td><span class="badge bg-success">Telecharger</span></td>
+                                            <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
                                         </tr>
                                         <tr>
                                             <td >SVT-2022/2023 | S2</td>
                                             <td>POO</td>
                                             
                                             <td>967</td>
-                                            <td><span class="badge bg-success">Telecharger</span></td>
+                                            <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
                                         </tr>
                                         <tr>
                                             <td >SVT-2022/2023 | S2</td>
                                             <td>Algorithemique</td>
                                             
                                             <td>1165</td>
-                                            <td><span class="badge bg-success">Telecharger</span></td>
+                                            <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
                                         </tr>
                                     </tbody>
                                 </table>

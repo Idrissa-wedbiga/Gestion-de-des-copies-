@@ -1,44 +1,46 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block title %} Admin-Profile {% endblock %}
+{% extends "base.html" %}
+{%load static%}
+{% block title %} Dashboard Etudiant {% endblock %}
 
 {% block content %}
+
 <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'userprincipale:index' %}">
+            <a class="nav-link collapsed" href="{% url 'Etudiant:index' %}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'userprincipale:login_page' %}">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:login' %}">
                 <i class="bi bi-house-check"></i>
                 <span>Accueil</span>
             </a>
         </li><!-- End Components Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'userprincipale:scolarity' %}">
-                <i class="bi bi-people"></i>
-                <span>Scolarités</span>
+            <a class="nav-link collapsed" href="{% url 'Etudiant:Mes_copies' %}">
+                <i class="bi bi-copy"></i>
+                <span>Mes Copies</span>
             </a>
         </li><!-- End Forms Nav -->
 
+   
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'userprincipale:enseignant' %}">
-                <i class="bi bi-people"></i>
-                <span>Enseignants</span>
+            <a class="nav-link collapsed" href="{% url 'Etudiant:Fichier_Personnel' %}">
+                <i class="bi bi-files"></i>
+                <span>Fichiers Personnels</span>
             </a>
         </li><!-- End Tables Nav -->
 
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'userprincipale:usersprofile' %}">
+            <a class="nav-link collapsed" href="{% url 'Etudiant:Profil' %}">
                 <i class="bi bi-person"></i>
                 <span>Mon Profil</span>
             </a>
@@ -47,28 +49,28 @@
     </ul>
 
 </aside><!-- End Sidebar-->
-    <main id="main" class="main">
 
-        <div class="pagetitle">
-            <h1>Profil</h1>
+<main id="main" class="main">   
+    <div class="pagetitle">
+            <h6><span class="d-none d-lg-block">Gestion des copies d'étudiants de l'Université Norbert ZONGO</span></h6>
+            <h1>Etudiant-Profil</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'userprincipale:index' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'Etudiant:index' %}">Home</a></li>
                     <li class="breadcrumb-item active">Profil</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+    </div><!-- End Page Title -->
 
-        <section class="section profile">
+    <section class="section profile">
             <div class="row">
                 <div class="col-xl-4">
 
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-
                             <img src="{% static 'assets/img/profile-img.jpg' %}" alt="Profile" class="rounded-circle">
-                            <h2>Romeo SAWADOGO</h2>
-                            <h3>Analyste développeur</h3>
+                            <h2>Idrissa SAWADOGO</h2>
+                            <h3>Etudiant</h3>
                             <div class="social-links mt-2">
                                 <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                                 <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -116,12 +118,12 @@
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label ">Prénom</div>
-                                        <div class="col-lg-9 col-md-8">Romeo</div>
+                                        <div class="col-lg-9 col-md-8">Idrissa</div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Job</div>
-                                        <div class="col-lg-9 col-md-8">Analyste développeur </div>
+                                        <div class="col-lg-3 col-md-4 label">Fillière</div>
+                                        <div class="col-lg-9 col-md-8">Informatique L3 </div>
                                     </div>
 
                                     <div class="row">
@@ -314,8 +316,7 @@
 
                 </div>
             </div>
-        </section>
+    </section>
 
-    </main><!-- End #main -->
-
+</main><!-- End #main -->
 {% endblock %}

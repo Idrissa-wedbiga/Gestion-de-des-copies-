@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Dashboard Admin {% endblock %}
+
+{% block content %}
+
+<style>
+    /* Style pour les labels */
+    label {
+        font-weight: bold;
+        color: #333;
+        /* Changer la couleur selon vos préférences */
+    }
+</style>
+
+    <!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:index' %}">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:login_page' %}">
+                <i class="bi bi-house-check"></i>
+                <span>Accueil</span>
+            </a>
+        </li><!-- End Components Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:scolarity' %}">
+                <i class="bi bi-people"></i>
+                <span>Scolarités</span>
+            </a>
+        </li><!-- End Forms Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:enseignant' %}">
+                <i class="bi bi-people"></i>
+                <span>Enseignants</span>
+            </a>
+        </li><!-- End Tables Nav -->
+
+        <li class="nav-heading">Pages</li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:usersprofile' %}">
+                <i class="bi bi-person"></i>
+                <span>Mon Profil</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
+
+    </ul>
+
+</aside><!-- End Sidebar-->
+
+<main id="main" class="main">
+
+        <div class="pagetitle">
+            <h6><span class="d-none d-lg-block">Gestion de copies d'étudiants de l'Université Norbert ZONGO</span></h6>
+        
+            <h1>Administrateur du site</h1>
+            <nav>
+            
+                <ol class="breadcrumb">
+                 <li class="breadcrumb-item active">Dashboard-Admin</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section profile">
+            <div class="container mt-5">
+                <div class="container mt-5">
+                    <h2>Ajouter une scolarité</h2>
+                    <form class=" p-4 shadow" style="width: 50%;">
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Catégorie</label>
+                            <input type="text" name="category" class="form-control" id="category" required>
+                            <div class="invalid-feedback">Veuillez entrer la Catégorie svp!</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="debut" class="form-label">Date du début</label>
+                            <input type="date" name="debut" class="form-control" id="debut" required>
+                            <div class="invalid-feedback">Veuillez entrer la date svp!</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fin" class="form-label">Date de la fin</label>
+                            <input type="date" name="fin" class="form-control" id="fin" required>
+                            <div class="invalid-feedback">Veuillez entrer la date svp!</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="lieu" class="form-label">Lieu</label>
+                            <input type="date" name="lieu" class="form-control" id="lieu" required>
+                            <div class="invalid-feedback">Veuillez entrer votre mail valide svp!</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="promoteur" class="form-label">Promoteur</label>
+                            <input type="text" name="promoteur" class="form-control" id="promoteur" required>
+                            <div class="invalid-feedback">Veuillez entrer vos préférences!</div>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary shadow">
+                                <i class="bi bi-plus"></i> Ajouter</button>
+                        </div>
+                    </form>
+
+                  </div>
+        </section>
+
+</main><!-- End #main -->
+
+{%endblock%}

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} Admin-Profile {% endblock %}
+{% block title %} Scolarité-Profile {% endblock %}
 
 {% block content %}
 <aside id="sidebar" class="sidebar">
@@ -8,37 +8,36 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'userprincipale:index' %}">
+            <a class="nav-link collapsed" href="{% url 'ScolaritePersonal:index' %}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'userprincipale:login_page' %}">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:login' %}">
                 <i class="bi bi-house-check"></i>
                 <span>Accueil</span>
             </a>
         </li><!-- End Components Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'userprincipale:scolarity' %}">
-                <i class="bi bi-people"></i>
-                <span>Scolarités</span>
+            <a class="nav-link collapsed" href="{% url 'ScolaritePersonal:envoyer' %}">
+                <i class="bi bi-files"></i>
+                <span>Envoyer copies</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'ScolaritePersonal:copie_corrigee' %}">
+                <i class="bi bi-files"></i>
+                <span>Copies corigées</span>
             </a>
         </li><!-- End Forms Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'userprincipale:enseignant' %}">
-                <i class="bi bi-people"></i>
-                <span>Enseignants</span>
-            </a>
-        </li><!-- End Tables Nav -->
 
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'userprincipale:usersprofile' %}">
+            <a class="nav-link collapsed" href="{% url 'ScolaritePersonal:Profil' %}">
                 <i class="bi bi-person"></i>
                 <span>Mon Profil</span>
             </a>
@@ -47,13 +46,14 @@
     </ul>
 
 </aside><!-- End Sidebar-->
-    <main id="main" class="main">
 
+    <main id="main" class="main">   
         <div class="pagetitle">
-            <h1>Profil</h1>
+            <h6><span class="d-none d-lg-block">Gestion des copies d'étudiants de l'Université Norbert ZONGO</span></h6>
+            <h1>Scolarité-Profil</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'userprincipale:index' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'ScolaritePersonal:index' %}">Home</a></li>
                     <li class="breadcrumb-item active">Profil</li>
                 </ol>
             </nav>
@@ -67,7 +67,7 @@
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
                             <img src="{% static 'assets/img/profile-img.jpg' %}" alt="Profile" class="rounded-circle">
-                            <h2>Romeo SAWADOGO</h2>
+                            <h2>Idrissa SAWADOGO</h2>
                             <h3>Analyste développeur</h3>
                             <div class="social-links mt-2">
                                 <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
@@ -116,7 +116,7 @@
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label ">Prénom</div>
-                                        <div class="col-lg-9 col-md-8">Romeo</div>
+                                        <div class="col-lg-9 col-md-8">Idrissa</div>
                                     </div>
 
                                     <div class="row">

@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %} Dashboard Etudiant {% endblock %}
+
+{% block content %}
+
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'Etudiant:index' %}">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:login' %}">
+                <i class="bi bi-house-check"></i>
+                <span>Accueil</span>
+            </a>
+        </li><!-- End Components Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'Etudiant:Mes_copies' %}">
+                <i class="bi bi-copy"></i>
+                <span>Mes Copies</span>
+            </a>
+        </li><!-- End Forms Nav -->
+
+   
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'Etudiant:Fichier_Personnel' %}">
+                <i class="bi bi-files"></i>
+                <span>Fichiers Personnels</span>
+            </a>
+        </li><!-- End Tables Nav -->
+
+        <li class="nav-heading">Pages</li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'Etudiant:Profil' %}">
+                <i class="bi bi-person"></i>
+                <span>Mon Profil</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
+
+    </ul>
+
+</aside><!-- End Sidebar-->
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h6><span class="d-none d-lg-block">Gestion des copies d'étudiants de l'Université Norbert ZONGO</span></h6>
+        
+        <h1>MPCI | 2021-2022</h1>
+        <nav>
+            
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'Etudiant:index' %}">Home</a></li>
+                <li class="breadcrumb-item active">Mes copies</li>
+                <li class="breadcrumb-item active">Dashboard-Enseignant</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    <section class="section dashboard">
+        <div class="row">
+
+            <!-- Left side columns -->
+            <div class="col-lg-12">
+                <div class="row">
+        <div class="col-12">
+        <div class="card recent-sales overflow-auto">
+        <div class="card-body">
+            <h5 class="card-title">Copies corigées </h5>
+
+            <table class="table table-borderless ">
+                <thead>
+                    <tr>
+                        <th scope="col">Promotion && Année</th>
+                        <th scope="col">Modules</th>
+                        <th scope="col">Nombre de copies </th>
+                        <th scope="col">Enseignant</th>
+                        <th scope="col">Telechargement </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">MPCI - 2020-2021</th>
+                        <td>Statistique</td>
+                        
+                        <td>664</td>
+                        <td>Dr BAGRE</td>
+                        <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">MPCI - 2020-2021</th>
+                        <td>Algèbre</td>
+                        
+                        <td>447</td>
+                        <td>Dr DEMBEGA</td>
+                        <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">MPCI - 2020-2021</th>
+                        <td>Analyse</td>
+                        
+                        <td>1147</td>
+                        <td>Dr DIANDA</td>
+                        <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Informatique - 2020-2021</th>
+                        <td>POO</td>
+                        
+                        <td>967</td>
+                        <td>Dr BIKIENGA</td>
+                        <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">MPCI - 2020-2021</th>
+                        <td>Algorithemique</td>
+                        
+                        <td>1165</td>
+                        <td>Dr BIKIENGA</td>
+                        <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                <ul class="pagination">
+                  <li class="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                  <li class="paginate_button page-item active"><a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+                  </li>
+                  <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">2</a>
+                  </li>
+                  <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">3</a>
+                  </li>
+                  <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0" class="page-link">4</a>
+                  </li>
+                  <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="5" tabindex="0" class="page-link">5</a>
+                  </li>
+                  <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="6" tabindex="0" class="page-link">6</a>
+                  </li>
+                  <li class="paginate_button page-item next" id="dataTable_next"><a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
+                </li>
+              </ul>
+              </div>        
+        </div>
+    </div><!-- End Left side columns -->
+    </div>
+    </section>
+
+</main><!-- End #main -->
+
+{% endblock %}

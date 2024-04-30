@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %} Dashboard Etudiant {% endblock %}
+
+{% block content %}
+
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'Etudiant:index' %}">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:login' %}">
+                <i class="bi bi-house-check"></i>
+                <span>Accueil</span>
+            </a>
+        </li><!-- End Components Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'Etudiant:Mes_copies' %}">
+                <i class="bi bi-copy"></i>
+                <span>Mes Copies</span>
+            </a>
+        </li><!-- End Forms Nav -->
+
+   
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'Etudiant:Fichier_Personnel' %}">
+                <i class="bi bi-files"></i>
+                <span>Fichiers Personnels</span>
+            </a>
+        </li><!-- End Tables Nav -->
+
+        <li class="nav-heading">Pages</li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'Etudiant:Profil' %}">
+                <i class="bi bi-person"></i>
+                <span>Mon Profil</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
+
+    </ul>
+
+</aside><!-- End Sidebar-->
+
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h6><span class="d-none d-lg-block">Gestion des copies d'étudiants de l'Université Norbert ZONGO</span></h6>
+        <h1>MPCI | 2021-2022</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'Etudiant:index' %}">Home</a></li>
+                <li class="breadcrumb-item active">Mes Fichiers</li>
+                <li class="breadcrumb-item active">Dashboard-Enseignant</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    <section class="section profile">
+        <div class="container mt-5">
+            <div class="container mt-5">
+                <h2> Mes fichiers Personnels</h2>
+                <form class=" p-4 shadow" style="width: 80%;">
+                    <div class="mb-3">
+                        <label for="fileInput" class="form-label">Sélectionner un fichier :</label>
+                        <input type="file" class="form-control" id="fileInput" name="file">
+                    </div>
+                    <div id="dropArea" class="drop-area">
+                        <input type="file" id="fileInput" multiple>
+                        <p class="mb-5 bg-white">Glissez-déposez des fichiers ici ou cliquez pour sélectionner des fichiers.</p>
+                        <div id="fileList"></div>
+                    </div>
+                    
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-success shadow">
+                            <i class="bi bi-send-fill"></i> Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main><!-- End #main -->
+
+{% endblock %}

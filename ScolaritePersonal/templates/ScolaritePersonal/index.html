@@ -9,7 +9,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="index.html">
+            <a class="nav-link collapsed" href="{% url 'ScolaritePersonal:index' %}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
@@ -23,13 +23,13 @@
         </li><!-- End Components Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="promoteur.html">
+            <a class="nav-link collapsed" href="{% url 'ScolaritePersonal:envoyer' %}">
                 <i class="bi bi-files"></i>
                 <span>Envoyer copies</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="promoteur.html">
+            <a class="nav-link collapsed" href="{% url 'ScolaritePersonal:copie_corrigee' %}">
                 <i class="bi bi-files"></i>
                 <span>Copies corigées</span>
             </a>
@@ -38,7 +38,7 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'userprincipale:usersprofile' %}">
+            <a class="nav-link collapsed" href="{% url 'ScolaritePersonal:Profil' %}">
                 <i class="bi bi-person"></i>
                 <span>Mon Profil</span>
             </a>
@@ -57,7 +57,7 @@
         <nav>
             
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'userprincipale:index' %}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'ScolaritePersonal:index' %}">Home</a></li>
                 <li class="breadcrumb-item active">Dashboard-Scolarite</li>
             </ol>
         </nav>
@@ -159,7 +159,7 @@
                                             
                                             <td>664</td>
                                             <td>Dr BAGRE</td>
-                                            <td><span class="badge bg-success">Telecharger</span></td>
+                                            <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
                                         </tr>
                                         <tr>
                                             <th scope="row">MPCI - 2020-2021</th>
@@ -167,7 +167,7 @@
                                             
                                             <td>447</td>
                                             <td>Dr DEMBEGA</td>
-                                            <td><span class="badge bg-success">Telecharger</span></td>
+                                            <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
                                         </tr>
                                         <tr>
                                             <th scope="row">MPCI - 2020-2021</th>
@@ -175,7 +175,7 @@
                                             
                                             <td>1147</td>
                                             <td>Dr DIANDA</td>
-                                            <td><span class="badge bg-success">Telecharger</span></td>
+                                            <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
                                         </tr>
                                         <tr>
                                             <th scope="row">Informatique - 2020-2021</th>
@@ -183,7 +183,7 @@
                                             
                                             <td>967</td>
                                             <td>Dr BIKIENGA</td>
-                                            <td><span class="badge bg-success">Telecharger</span></td>
+                                            <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
                                         </tr>
                                         <tr>
                                             <th scope="row">MPCI - 2020-2021</th>
@@ -191,7 +191,7 @@
                                             
                                             <td>1165</td>
                                             <td>Dr BIKIENGA</td>
-                                            <td><span class="badge bg-success">Telecharger</span></td>
+                                            <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
                                         </tr>
                                     </tbody>
                                 </table>

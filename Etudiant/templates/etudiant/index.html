@@ -9,21 +9,21 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="index.html">
+            <a class="nav-link collapsed" href="{% url 'Etudiant:index' %}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="abonnés.html">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:login' %}">
                 <i class="bi bi-house-check"></i>
                 <span>Accueil</span>
             </a>
         </li><!-- End Components Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="promoteur.html">
+            <a class="nav-link collapsed" href="{% url 'Etudiant:Mes_copies' %}">
                 <i class="bi bi-copy"></i>
                 <span>Mes Copies</span>
             </a>
@@ -31,7 +31,7 @@
 
    
         <li class="nav-item">
-            <a class="nav-link collapsed" href="evenement.html">
+            <a class="nav-link collapsed" href="{% url 'Etudiant:Fichier_Personnel' %}">
                 <i class="bi bi-files"></i>
                 <span>Fichiers Personnels</span>
             </a>
@@ -40,7 +40,7 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="users-profile.html">
+            <a class="nav-link collapsed" href="{% url 'Etudiant:Profil' %}">
                 <i class="bi bi-person"></i>
                 <span>Mon Profil</span>
             </a>
@@ -59,7 +59,7 @@
         <nav>
             
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'Etudiant:index' %}">Home</a></li>
                 <li class="breadcrumb-item active">Dashboard-Enseignant</li>
             </ol>
         </nav>

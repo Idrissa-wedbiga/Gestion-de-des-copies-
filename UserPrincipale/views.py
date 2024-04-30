@@ -1,23 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+from .models import Administrateur, Etudiant, Enseignant, Scolarite
 
 
 def index(request):
 
     return render(request, "userprincipale/index.html")
 
+#enseignant
 def enseignant(request):
 
     return render(request, "Enseignant/enseignant.html")
-
-def scolarity(request):
-
-    return render(request, "Scolarite/scolarity.html")
-
-def usersprofile(request):
-
-    return render(request, "Profil/users_profile.html")
 
 def ajouter(request):
     
@@ -27,40 +21,51 @@ def editer(request):
     
     return render(request, "Enseignant/edit.html")
 
+
+#scolarite
+def scolarity(request):
+
+    return render(request, "Scolarite/scolarity.html")
+
+def sc_ajouter(request):
+
+    return render(request, "Scolarite/sc_ajouter.html")
+
+def sc_editer(request):
+    
+    return render(request, "Scolarite/sc_edit.html")
+
+#user profil
+def usersprofile(request):
+
+    return render(request, "Profil/users_profile.html")
+
 #Login
 
-def login(request):
+def login_page(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        # Récupérer les données du formulaire soumis
+        matricule = request.POST.get('matricule')
         password = request.POST.get('password')
-        remember = request.POST.get('remember')
-
-        user = authenticate(request, email=email, password=password)
-
+        
+        # Authentifier l'utilisateur en utilisant le matricule
+        user = authenticate(request, matricule=matricule, password=password)
+        
         if user is not None:
+            # Authentification réussie, connecter l'utilisateur
             login(request, user)
-            if remember:
-                request.session.set_expiry(1209600)  # 2 weeks
-            else:
-                request.session.set_expiry(0)  # Session expires when browser is closed
-
-            if hasattr(user, 'utilisateur'):
-                # Rediriger vers le tableau de bord de l'utilisateur
-                return redirect('dashboard_utilisateur')
-            elif hasattr(user, 'etudiant'):
-                # Rediriger vers le tableau de bord de l'étudiant
-                return redirect('dashboard_etudiant')
-            elif hasattr(user, 'scolarite'):
-                # Rediriger vers le tableau de bord de la scolarité
-                return redirect('dashboard_scolarite')
-            elif hasattr(user, 'enseignant'):
-                # Rediriger vers le tableau de bord de l'enseignant
-                return redirect('dashboard_enseignant')
-            else:
-                # L'utilisateur n'a pas de type défini, gérer en conséquence
-                pass
+            # Redirection vers la page appropriée
+            if hasattr(user, 'Etudiant'):
+                return redirect('Etudiant:index')
+            elif hasattr(user, 'Enseignant'):
+                return redirect('Enseignant:index')
+            elif hasattr(user, 'Scolarite'):
+                return redirect('ScolaritePersonal:index')
+            elif hasattr(user, 'Administrateur'):
+                return redirect('UserPrincipale:index')
         else:
-            # Gérer l'authentification invalide, par exemple afficher un message d'erreur
-            return render(request, 'login.html', {'error_message': 'Nom d\'utilisateur ou mot de passe incorrect'})
-
+            # Authentification échouée, renvoyer un message d'erreur
+            return render(request, 'login.html', {'error_message': 'Matricule   ,INE ou mot de passe incorrect'})
+    
+    # Si la méthode HTTP est GET ou si l'authentification échoue
     return render(request, 'login.html')

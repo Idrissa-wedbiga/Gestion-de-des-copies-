@@ -3,7 +3,51 @@
 {% block title %} Dashboard Admin {% endblock %}
 
 {% block content %}
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
 
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:index' %}">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:login_page' %}">
+                <i class="bi bi-house-check"></i>
+                <span>Accueil</span>
+            </a>
+        </li><!-- End Components Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:scolarity' %}">
+                <i class="bi bi-people"></i>
+                <span>Scolarités</span>
+            </a>
+        </li><!-- End Forms Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:enseignant' %}">
+                <i class="bi bi-people"></i>
+                <span>Enseignants</span>
+            </a>
+        </li><!-- End Tables Nav -->
+
+        <li class="nav-heading">Pages</li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:usersprofile' %}">
+                <i class="bi bi-person"></i>
+                <span>Mon Profil</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
+
+    </ul>
+
+</aside><!-- End Sidebar-->
     <main id="main" class="main">
 
         <div class="pagetitle">
@@ -18,12 +62,12 @@
 
         <section class="section profile">
             <div class="container mt-5">
-                <h2>Gestion des événements</h2>
+                <h2>Gestion des scolarités</h2>
 
                 <!-- Boutons pour les opérations -->
                 <div class="row justify-content-start">
                     <div class="col-auto">
-                        <a href="{% url 'userprincipale:ajouter' %}" class="btn btn-primary shadow">
+                        <a href="{% url 'userprincipale:sc_ajouter' %}" class="btn btn-primary shadow">
                             <i class="bi bi-plus"></i> Ajouter
                         </a>
                     </div>
@@ -51,7 +95,7 @@
                     <td>Koudougou</td>
                     <td>CIN</td>
                     <td>
-                        <a href="{% url 'userprincipale:editer' %}" class="btn btn-warning shadow">
+                        <a href="{% url 'userprincipale:sc_editer' %}" class="btn btn-warning shadow">
                             <i class="bi bi-pencil"></i>
                         </a>
                         <a href="" class="btn btn-danger shadow">

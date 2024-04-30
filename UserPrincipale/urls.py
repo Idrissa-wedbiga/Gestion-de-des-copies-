@@ -5,13 +5,16 @@ app_name='userprincipale'
 
 urlpatterns=[
     path('',views.index,name='index'),
-    #path('dashboard/', views.dashboard, name='dashboard'),
-    #path('abonnes/', views.abonnes, name='abonnes'),
-    path('Scolarite/', views.scolarity, name='scolarity'),
-    path('Enseignant/', views.enseignant, name='enseignant'),
     path('usersprofile/', views.usersprofile, name='usersprofile'),
+    #Enseignant
+    path('Enseignant/', views.enseignant, name='enseignant'),
     path('ajouter/', views.ajouter, name='ajouter'),
     path('editer/', views.editer, name='editer'),
-    path('login/', views.login, name='login'),
+    #Scolarité
+    path('Scolarite/', views.scolarity, name='scolarity'),
+    path('sc_ajouter', views.sc_ajouter, name='sc_ajouter'),
+    path('sc_editer', views.sc_editer, name='sc_editer'),
+    #login
+    path('login/', views.login_page, name='login'),
     path('login/', include('django.contrib.auth.urls')),
 ]
