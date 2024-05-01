@@ -14,7 +14,4 @@ urlpatterns=[
     path('Scolarite/', views.scolarity, name='scolarity'),
     path('sc_ajouter', views.sc_ajouter, name='sc_ajouter'),
     path('sc_editer', views.sc_editer, name='sc_editer'),
-    #login
-    path('login/', views.login_page, name='login'),
-    path('login/', include('django.contrib.auth.urls')),
 ]
