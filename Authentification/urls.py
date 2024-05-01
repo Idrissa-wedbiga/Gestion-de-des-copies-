@@ -5,7 +5,11 @@ app_name='Authentification'
 
 urlpatterns = [
     #login
-    path('', authentication.views.login_page.as_view(), name='login'),
+    path('',views.login_view, name='login'),
 
     #logout
+    #path('logout', views.logout_view, name='logout'),
+
+    #signup
+    path('register', views.signup_view, name='signup'),
 ]
