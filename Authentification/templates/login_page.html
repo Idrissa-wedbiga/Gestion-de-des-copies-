@@ -33,13 +33,6 @@
     <!-- Template Main CSS File -->
     <link href="{% static  'assets/css/style.css' %}" rel="stylesheet">
 
-    <style>
-        body {
-            background-image: url("{% static 'assets/img/unzbg.jpeg' %}");
-            background-size: cover;
-            background-position: center;
-        }
-    </style>
   <!--======================================================== -->
 </head>
 
@@ -54,7 +47,7 @@
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
                             <div class="d-flex justify-content-center py-4">
-                                <a href="{% url 'Authentification:login_page' %}" class="logo d-flex align-items-center w-auto">
+                                <a href="{% url 'Authentification:login' %}" class="logo d-flex align-items-center w-auto">
                                     <span class="d-none d-lg-block">Gestion des copies des étudiants d'UNZ</span>
                                 </a>
                             </div><!-- End Logo -->
@@ -100,7 +93,7 @@
                                             <button class="btn btn-primary w-100" type="submit"> Se connecter </button>
                                         </div>
                                         <div class="col-12">
-                                            <p class="small mb-0">Vous n'avez pas de compte? <a href="https://www.campusfaso.bf">Créer un compte</a></p>
+                                            <p class="small mb-0">Vous n'avez pas de compte? <a href="{% url 'Authentification:signup' %}">Créer un compte</a></p>
                                         </div>
                                     </form>
                                 </div>
