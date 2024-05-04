@@ -2,31 +2,29 @@ from django.shortcuts import render,redirect
 from django.core.validators import validate_email
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate,login,logout
 
 # Create your views here.
-""" class LoginPageView(View):
-    template_name = 'login_page.html'
-    form_class = forms.LoginForm
-
-    def get(self, request):
-        form = self.form_class()
-        message = ''
-        return render(request, self.template_name, context={'form': form, 'message': message})
-        
-    def post(self, request):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            user = authenticate(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password'],
-            )
-            if user is not None:
-                login(request, user)
-                return redirect('home')
-        message = 'Identifiants invalides.'
-        return render(request, self.template_name, context={'form': form, 'message': message}) """
+#@login_required(login_url='Authentification:login')
 def login_view(request):
     
+    if request.method == 'POST':
+        email=request.POST.get('email',None)
+        password=request.POST.get('password',None)
+        
+        user =User.objects.filter(email=email).first()
+        if user:
+            auth_user = authenticate(username=user.username,password=password)
+            if auth_user:
+                print(auth_user.email,auth_user.username)
+            else:
+                print("Wrong password")
+        else:
+            print("User doesn't exist")
+            
+        print("=="*5 ,"NEW POST",email,password,"=="*5)
+        
     return render(request, "login_page.html")
     
 def signup_view(request):
@@ -52,6 +50,7 @@ def signup_view(request):
                 message = "Mot de passe incorrect !" 
                 
         user=User.objects.filter(Q(email=email) | Q(username=name) ).first()
+        
         if user:
             error = True
             message = f"Un utilisateur avec email {email} et un nom {name} existe déjà !"
@@ -63,14 +62,17 @@ def signup_view(request):
                 email=email,
             )
             user.save()
+            
             user.password=password
             user.set_password(password)
             user.save()
             
-            print("=="*5 ,"NEW POST",name,prenom,email,password,repassword,"=="*5)
+            return redirect('Authentification:login')
+           
           
     context ={
         'error':error,
         'message':message
         }
     return render(request, "register_page.html",context)
+

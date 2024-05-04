@@ -61,13 +61,14 @@
                                         <p class="text-center small">Veuillez remplir les champs</p>
                                     </div>
                                     <p>{{ message }}</p>                               
-                                    <form class="row g-3 needs-validation" novalidate method="post">
-                                        {{ form.as_p }}
+                                    <form action = "{% url 'Authentification:login' %}"class="row g-3 needs-validation" novalidate method="POST">
                                         {% csrf_token %}
+                                        {{ form.as_p }}
+                                        
                                         {% if error_message %}
-                                        <div class="alert alert-danger" role="alert">
-                                            {{ error_message }}
-                                        </div>
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ error_message }}
+                                            </div>
                                         {% endif %}
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">E-mail</label>
