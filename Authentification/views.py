@@ -15,19 +15,24 @@ def login_view(request):
         password = request.POST.get('password', None)
         
         # Authentifier l'utilisateur en utilisant le matricule et le mot de passe
-        User = get_user_model()
+        User = get_user_model( )
         user = User.objects.filter(matricule=matricule).first()
       
         if user:
             auth_user = authenticate(matricule=user.matricule, password=password)
-            #login(request, user)
+            
             if auth_user:
                 login(request, auth_user)
-                print(auth_user.matricule, auth_user.password)
-                return redirect('Enseignant:index')
+                print(auth_user)
+                #print(auth_user.matricule, auth_user.password)
+                return redirect('userprincipale:index')
             else:
+                if user.password != password:
                 # Informer l'utilisateur que la connexion a échoué
-                message = "Matricule/INE ou mot de passe incorrect."
+                    message = "Mot de passe incorrect." 
+                else:
+                    
+                    message = "Matricule/INE  incorrect."
                 
         else:
             
@@ -92,3 +97,6 @@ def signup_view(request):
     }
     return render(request, "register_page.html", context)
 
+def logout_view(request):
+    logout(request)
+    return redirect('Authentification:login')

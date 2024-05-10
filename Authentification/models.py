@@ -22,8 +22,33 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=100)
     prenom = models.CharField(max_length=100)
+    is_student = models.BooleanField(default=False)
+    is_enseignant = models.BooleanField(default=False)
+    is_scolarite = models.BooleanField(default=False)
+    #USERNAME_FIELD = 'matricule'
     
-
+    @property
+    def is_student(self):
+        # Déterminez si l'utilisateur est un étudiant
+        # Vous pouvez utiliser un champ existant ou en ajouter un pour représenter cela
+        return self.student_profile is not None
+    
+    @property
+    def is_enseignant(self):
+        # Déterminez si l'utilisateur est un enseignant
+        # Vous pouvez utiliser un champ existant ou en ajouter un pour représenter cela
+        return self.enseignant_profile is not None
+    
+    @property
+    def is_scolarite(self):
+        # Déterminez si l'utilisateur est de la scolarité
+        # Vous pouvez utiliser un champ existant ou en ajouter un pour représenter cela
+        return self.scolarite_profile is not None
+    @property
+    def is_admin(self):
+        
+        return self.role == 'ADMIN'
+    
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -37,4 +62,4 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(email, password, **extra_fields)
-    
+

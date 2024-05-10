@@ -1,0 +1,14 @@
+from django.contrib.auth import backends
+from django.contrib.auth import get_user_model
+
+class MatriculeBackend(backends.ModelBackend):
+    def authenticate(self, request, matricule=None, password=None, **kwargs):
+        User = get_user_model()
+        try:
+            user = User.objects.get(matricule=matricule)
+            if user.check_password(password):
+                return user
+        except User.DoesNotExist:
+            return None
+
+

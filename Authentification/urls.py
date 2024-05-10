@@ -12,4 +12,5 @@ urlpatterns = [
 
     #signup
     path('register', views.signup_view, name='signup'),
+    path('logout', views.logout_view, name='logout'),
 ]
