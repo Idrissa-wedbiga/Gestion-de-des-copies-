@@ -60,21 +60,20 @@
                                         <h5 class="card-title text-center pb-0 fs-4">Connectez vous à votre compte</h5>
                                         <p class="text-center small">Veuillez remplir les champs</p>
                                     </div>
-                                    <p>{{ message }}</p>                               
+
+                                    {% if message %}
+                                        <div class="alert alert-danger" role="alert" data-mdb-color="danger">
+                                            {{ message }}
+                                        </div>
+                                    {% endif %}                     
                                     <form action = "{% url 'Authentification:login' %}"class="row g-3 needs-validation" novalidate method="POST">
                                         {% csrf_token %}
-                                        {{ form.as_p }}
-                                        
-                                        {% if error_message %}
-                                            <div class="alert alert-danger" role="alert">
-                                                {{ error_message }}
-                                            </div>
-                                        {% endif %}
+                                                                                                                    
                                         <div class="col-12">
-                                            <label for="yourUsername" class="form-label">E-mail</label>
+                                            <label for="yourUsername" class="form-label">Matricule/INE</label>
                                             <div class="input-group has-validation">
-                                                <input type="email" name="email" class="form-control" id="yourUsername" required>
-                                                <div class="invalid-feedback">Veuillez entrer votre e-mail svp!</div>
+                                                <input type="text" name="matricule" class="form-control" id="yourUsername" required>
+                                                <div class="invalid-feedback">Veuillez entrer votre matricule ou INE svp!</div>
                                             </div>
                                         </div>
                                     
