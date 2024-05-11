@@ -36,7 +36,24 @@
   <!--======================================================== -->
 </head>
 
+
 <body>
+    <style>
+        /* CSS pour le background de la page */
+        body {
+          /* Chemin de votre image en tant que background */
+          background-image: url("{% static  'assets/img/norbertZongoStele.png' %}");
+          /* Fixer l'image en arrière-plan pour qu'elle ne défile pas avec le contenu */
+          background-attachment: fixed;
+          /* Définir la taille de l'image pour couvrir toute la page */
+          background-size: cover;
+          /* Centrer l'image en arrière-plan */
+          background-position: center;
+          /* Rendre l'image responsive */
+          min-height: 100vh;
+          height: auto;
+        }
+      </style>
 
     <main>
         <div class="container">

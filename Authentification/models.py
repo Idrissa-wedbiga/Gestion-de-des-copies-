@@ -22,9 +22,8 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=100)
     prenom = models.CharField(max_length=100)
-    is_student = models.BooleanField(default=False)
-    is_enseignant = models.BooleanField(default=False)
-    is_scolarite = models.BooleanField(default=False)
+    
+   
     #USERNAME_FIELD = 'matricule'
     
     @property

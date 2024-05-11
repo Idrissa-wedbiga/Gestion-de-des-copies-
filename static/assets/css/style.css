@@ -381,7 +381,7 @@ h6 {
   z-index: 997;
   height: 60px;
   box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
-  background-color: #fff;
+  background-color: #117902;
   padding-left: 20px;
   /* Toggle Sidebar Button */
   /* Search Bar */
@@ -551,7 +551,7 @@ h6 {
   scrollbar-width: thin;
   scrollbar-color: #aab7cf transparent;
   box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
-  background-color: #fff;
+  background-color: #0027fb;
 }
 
 @media (max-width: 1199px) {
