@@ -1,14 +1,11 @@
 from django.contrib import admin
-from .models import CustomUser
-from django.contrib.auth.admin import UserAdmin
+from .models import CustomUser,ScolariteModels
 
-#admin.site.register(CustomUser)
 
-class CustomUserAdmin(UserAdmin):
-    # Liste des champs à afficher dans le tableau de bord de l'administrateur
-    list_display = ('username','prenom','matricule','email')  
+class ScolariteModelsAdmin(admin.ModelAdmin):
 
-    # Champ de recherche pour le tableau de bord de l'administrateur
-    search_fields = ('username','prenom','matricule','email')  
+    list_display = ('matricule', 'username', 'prenom', 'fonction', 'etablissement', 'email')
     
-admin.site.register(CustomUser, CustomUserAdmin)
+    search_fields = ('matricule', 'username', 'prenom', 'fonction', 'etablissement', 'email')
+
+admin.site.register(ScolariteModels, ScolariteModelsAdmin)

@@ -3,6 +3,14 @@
 {% block title %} Dashboard Admin {% endblock %}
 
 {% block content %}
+<style>
+    /* Style pour les labels */
+    label {
+        font-weight: bold;
+        color: #333;
+        /* Changer la couleur selon vos préférences */
+    }
+</style>
 
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
@@ -56,7 +64,7 @@
             <h1>Enseignant</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'userprincipale:index' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'userprincipale:enseignant' %}">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard-Admin</li>
                 </ol>
             </nav>

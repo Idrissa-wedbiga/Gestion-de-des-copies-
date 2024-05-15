@@ -3,8 +3,8 @@
 {% block title %} Dashboard Admin {% endblock %}
 
 {% block content %}
-<!-- ======= Sidebar ======= -->
-<aside id="sidebar" class="sidebar">
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -47,10 +47,10 @@
 
     </ul>
 
-</aside><!-- End Sidebar-->
+    </aside><!-- End Sidebar-->
     <main id="main" class="main">
 
-        <div class="pagetitle">
+    <div class="pagetitle">
             <h1>Scolarité</h1>
             <nav>
                 <ol class="breadcrumb">
@@ -58,54 +58,60 @@
                     <li class="breadcrumb-item active">Scolarité</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+    </div><!-- End Page Title -->
 
-        <section class="section profile">
-            <div class="container mt-5">
-                <h2>Gestion des scolarités</h2>
+    <section class="section profile">
+        <div class="container mt-5">
+            <h2>Gestion des scolarités</h2>
 
                 <!-- Boutons pour les opérations -->
-                <div class="row justify-content-start">
-                    <div class="col-auto">
-                        <a href="{% url 'userprincipale:sc_ajouter' %}" class="btn btn-primary shadow">
-                            <i class="bi bi-plus"></i> Ajouter
-                        </a>
-                    </div>
+            <div class="row justify-content-start">
+                <div class="col-auto">
+                    <a href="{% url 'userprincipale:sc_ajouter' %}" class="btn btn-primary shadow">
+                        <i class="bi bi-plus"></i> Ajouter
+                    </a>
                 </div>
             </div>
+        </div>
 
             <!-- Tableau pour afficher les produits -->
-            <table class="table">
-                <thead>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Matricule</th>
+                    <th>Nom</th>
+                    <th>Prénom(s)</th>
+                    <th>Emploi/Fonction</th>
+                    <th>Scolarité</th>
+                    <th>E-mail</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for scolarite in scolarites %}
                     <tr>
-                        <th>Matricule</th>
-                        <th>Nom</th>
-                        <th>Prénom(s)</th>
-                        <th>Emploi/Fonction</th>
-                        <th>Scolarité</th>
-                        <th>E-mail</th>
-                        <th>Action</th>
+                        <td>{{ scolarite.matricule }}</td>
+                        <td>{{ scolarite.name }}</td>
+                        <td>{{ scolarite.prenom }}</td>
+                        <td>{{ scolarite.fonction }}</td>
+                        <td>{{ scolarite.etablissement }}</td>
+                        <td>{{ scolarite.email }}</td>
+                        <td>
+                            <a href="{% url 'userprincipale:sc_editer' scolarite.id %}" class="btn btn-warning shadow">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            
+                            <a href="{% url 'userprincipale:sc_supprimer' scolarite.id %}" class="btn btn-danger shadow">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                            
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <td>257298B</td>
-                    <td>ADJAMBO</td>
-                    <td>Rosaline</td>
-                    <td>Chef de Scolarité</td>
-                    <td>ST</td>
-                    <td>rosaline@gmail.com</td>
-                    <td>
-                        <a href="{% url 'userprincipale:sc_editer' %}" class="btn btn-warning shadow">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                        <a href="" class="btn btn-danger shadow">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                    </td>
-                </tbody>
-            </table>
-            </div>
-        </section>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </section>
 
     </main><!-- End #main -->
 

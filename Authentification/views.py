@@ -4,9 +4,13 @@ from Authentification.models import CustomUser
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth import get_user_model
+from django.views.decorators.csrf import requires_csrf_token
+from django.contrib.auth.views import LoginView
+from .forms import CustomAuthenticationForm
 
     # Create your views here.
     #@login_required(login_url='Authentification:login')
+@requires_csrf_token
 def login_view(request):
     message = ""
    
@@ -49,7 +53,7 @@ def signup_view(request):
     message = ""
     
     if request.method == 'POST':
-        name = request.POST.get('name', None)
+        username = request.POST.get('username', None)
         prenom = request.POST.get('prenom', None)
         matricule= request.POST.get('matricule', None)
         email = request.POST.get('email', None)
@@ -81,9 +85,9 @@ def signup_view(request):
             
         # Enregistrer un utilisateur   
         if error == False:
-            user = User.objects.create_user(username=name,prenom=prenom,matricule=matricule, email=email, password=password)
+            user = User.objects.create_user(username=username,prenom=prenom,matricule=matricule, email=email, password=password)
             user.matricule = matricule
-            user.name = name
+            user.username = username
             user.prenom = prenom
             user.email = email
             user.save()
@@ -98,5 +102,13 @@ def signup_view(request):
     return render(request, "register_page.html", context)
 
 def logout_view(request):
+    
     logout(request)
-    return redirect('Authentification:login')
+    
+    return redirect('Authentification:home')
+def home(request):
+    
+    return render(request,"home.html")
+
+class CustomLoginView(LoginView):
+    authentication_form = CustomAuthenticationForm
