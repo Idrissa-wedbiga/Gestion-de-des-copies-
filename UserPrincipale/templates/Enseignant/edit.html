@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load form_tags %}
 {% block title %} Modifier-Enseignant {% endblock %}
 
 {% block content %}
@@ -77,35 +77,32 @@
             <div class="container mt-5">
                 <div class="container mt-5">
                     <h2>Modifier un enseignant</h2>
-                    <form class=" p-4 shadow" style="width: 50%;">
+                    <form class=" p-4 shadow" style="width: 50%;"method="POST">
+                        {% csrf_token %}
                         <div class="mb-3">
-                            <label for="matricule" class="form-label">Matricule</label>
-                            <input type="text" name="matricule" class="form-control" id="matricule" required>
+                            <label for="Matricule" class="form-label">Matricule</label>
+                            {{ form.matricule|add_class:"form-control" }}
+                            <div class="invalid-feedback">Veuillez entrer le matricule svp!</div>
                         </div>
 
                         <div class="mb-3">
                             <label for="nom" class="form-label">Nom</label>
-                            <input type="text" name="nom" class="form-control" id="nom" required>
+                            {{ form.username|add_class:"form-control" }}
                         </div>
                         
                         <div class="mb-3">
                             <label for="prenom" class="form-label">Prenom(s)</label>
-                            <input type="text" name="siege" class="form-control" id="prenom" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="mail" class="form-label">E-mail</label>
-                            <input type="email" name="mail" class="form-control" id="mail" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Mot de passe</label>
-                            <input type="password" name="password" class="form-control" id="password" required>
+                            {{ form.prenom|add_class:"form-control" }}
                         </div>
                         <div class="mb-3">
                             <label for="specialite" class="form-label">Spécialité</label>
-                            <input type="text" name="specialite" class="form-control" id="specialite" required>
+                            {{ form.specialite|add_class:"form-control" }}
                         </div>
-
+                        <div class="mb-3">
+                            <label for="mail" class="form-label">E-mail</label>
+                            {{ form.email|add_class:"form-control" }}
+                        </div>
+                      
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary shadow">
                                 <i class="bi bi-plus"></i> Modifier</button>

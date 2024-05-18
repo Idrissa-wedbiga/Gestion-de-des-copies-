@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load form_tags %}
 
 {% block title %} Dashboard Admin {% endblock %}
 
@@ -64,7 +65,7 @@
             <h1>Modifier</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'userprincipale:ajouter' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'userprincipale:scolarity' %}">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard-Scolarité</li>
                 </ol>
             </nav>
@@ -72,53 +73,54 @@
 
         <section class="section profile">
             <div class="container mt-5">
-                <div class="container mt-5">
-                    <h2>Modifier une scolarité</h2>
-                    <form class=" p-4 shadow" style="width: 50%;">
-                        <div class="mb-3">
-                            <label for="Matriclue" class="form-label">Matricule</label>
-                            <input type="text" name="" class="form-control" id="Matriclue" required>
-                            <div class="invalid-feedback">Veuillez entrer le matricule svp!</div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="nom" class="form-label">Nom</label>
-                            <input type="text" name="nom" class="form-control" id="nom" required>
-                            <div class="invalid-feedback">Veuillez entrer le nom svp!</div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="prenom" class="form-label">Prénom(s)</label>
-                            <input type="text" name="prenom" class="form-control" id="prenom" required>
-                            <div class="invalid-feedback">Veuillez entrer le prénom svp!</div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="fonction" class="form-label">Emploi/Fonction</label>
-                            <input type="text" name="fonction" class="form-control" id="fonction" required>
-                            <div class="invalid-feedback">Veuillez remplir le champ emplio/fonction svp!</div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="etablissement" class="form-label">Scolarité</label>
-                            <input type="text" name="etablissement" class="form-control" id="etablissement" required>
-                            <div class="invalid-feedback">Veuillez entrer la scolarité!</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input type="email" name="email" class="form-control" id="email" required>
-                            <div class="invalid-feedback">Veuillez entrer le champ email!</div>
-                        </div>
-
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary shadow">
-                                <i class="bi bi-plus"></i> Modifier</button>
-                        </div>
-                    </form>
-
-                  </div>
+                <h2>Modifier une scolarité</h2>
+                <form class="p-4 shadow" style="width: 50%;" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="Matricule" class="form-label">Matricule</label>
+                        {{ form.matricule|add_class:"form-control" }}
+                        <div class="invalid-feedback">Veuillez entrer le matricule svp!</div>
+                    </div>
+        
+                    <div class="mb-3">
+                        <label for="nom" class="form-label">Nom</label>
+                        {{ form.username|add_class:"form-control" }}
+                        <div class="invalid-feedback">Veuillez entrer le nom svp!</div>
+                    </div>
+        
+                    <div class="mb-3">
+                        <label for="prenom" class="form-label">Prénom(s)</label>
+                        {{ form.prenom|add_class:"form-control" }}
+                        <div class="invalid-feedback">Veuillez entrer le prénom svp!</div>
+                    </div>
+        
+                    <div class="mb-3">
+                        <label for="fonction" class="form-label">Emploi/Fonction</label>
+                        {{ form.fonction|add_class:"form-control" }}
+                        <div class="invalid-feedback">Veuillez remplir le champ emploi/fonction svp!</div>
+                    </div>
+        
+                    <div class="mb-3">
+                        <label for="etablissement" class="form-label">Scolarité</label>
+                        {{ form.etablissement|add_class:"form-control" }}
+                        <div class="invalid-feedback">Veuillez entrer la scolarité!</div>
+                    </div>
+        
+                    <div class="mb-3">
+                        <label for="email" class="form-label">E-mail</label>
+                        {{ form.email|add_class:"form-control" }}
+                        <div class="invalid-feedback">Veuillez entrer le champ email!</div>
+                    </div>
+        
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary shadow">
+                            <i class="bi bi-plus"></i> Modifier
+                        </button>
+                    </div>
+                </form>
+            </div>
         </section>
-
+        
     </main><!-- End #main -->
 
 {% endblock %}

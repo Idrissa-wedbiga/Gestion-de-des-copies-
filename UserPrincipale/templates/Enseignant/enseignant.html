@@ -4,109 +4,119 @@
 
 {% block content %}
 <aside id="sidebar" class="sidebar">
-
     <ul class="sidebar-nav" id="sidebar-nav">
-
         <li class="nav-item">
             <a class="nav-link collapsed" href="{% url 'userprincipale:index' %}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
-        </li><!-- End Dashboard Nav -->
-
+        </li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="{% url 'Authentification:login' %}">
                 <i class="bi bi-house-check"></i>
                 <span>Accueil</span>
             </a>
-        </li><!-- End Components Nav -->
-
+        </li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="{% url 'userprincipale:scolarity' %}">
                 <i class="bi bi-people"></i>
                 <span>Scolarités</span>
             </a>
-        </li><!-- End Forms Nav -->
-
+        </li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="{% url 'userprincipale:enseignant' %}">
                 <i class="bi bi-people"></i>
                 <span>Enseignants</span>
             </a>
-        </li><!-- End Tables Nav -->
-
+        </li>
         <li class="nav-heading">Pages</li>
-
         <li class="nav-item">
             <a class="nav-link collapsed" href="{% url 'userprincipale:usersprofile' %}">
                 <i class="bi bi-person"></i>
                 <span>Mon Profil</span>
             </a>
-        </li><!-- End Profile Page Nav -->
-
+        </li>
     </ul>
+</aside>
 
-</aside><!-- End Sidebar-->
-    <main id="main" class="main">
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Enseignant</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'userprincipale:index' %}">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard-Admin</li>
+            </ol>
+        </nav>
+    </div>
 
-        <div class="pagetitle">
-            <h1>Enseignant</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'userprincipale:index' %}">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard-Admin</li>
-                </ol>
-            </nav>
-        </div><!-- End Page Title -->
-
+    <div class="container mt-5">
         <div class="container mt-5">
-            <div class="container mt-5">
-                <h2>Gestion des enseignants</h2>
+            <h2>Gestion des enseignants</h2>
 
-                <!-- Boutons pour les opérations -->
-                <div class="row justify-content-start">
-                    <div class="col-auto">
-                        <a href="{% url 'userprincipale:ajouter' %}" class="btn btn-primary shadow">
-                            <i class="bi bi-plus"></i> Ajouter
-                        </a>
-                    </div>
+            <!-- Formulaire de recherche -->
+            <div class="row justify-content-start mb-4">
+                <div class="col-auto">
+                    <form method="GET" action="{% url 'userprincipale:enseignant' %}">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Rechercher par matricule,nom ou spécialité" value="{{ request.GET.q }}">
+                            <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i> Rechercher</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-auto">
+                    <a href="{% url 'userprincipale:ajouter' %}" class="btn btn-primary shadow">
+                        <i class="bi bi-plus"></i> Ajouter
+                    </a>
                 </div>
             </div>
-
-
-            <!-- Tableau pour afficher les commandes en attente -->
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Matricule</th>
-                        <th>Nom</th>
-                        <th>Prenom(s)</th>
-                        <th>Spécialité</th>
-                        <th>E-mail</th>
-                        <th>Action</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Exemple de commande en attente -->
-                    <tr>
-                        <td>B00L2020</td>
-                        <td>BIKIENGA</td>
-                        <td>Moustapha</td>
-                        <td>Informaticien</td>
-                        <td>romeosawadogo@yahoo.com</td>
-                        <td>
-                            <a href="{% url 'userprincipale:editer' %}" class="btn btn-warning shadow">
-                                <i class="bi bi-pencil"></i></a>
-                            <a href="" class="btn btn-danger shadow">
-                                <i class="bi bi-trash"></i></a>
-                        </td>
-                    </tr>
-                    <!-- Autres commandes en attente peuvent être ajoutées ici -->
-                </tbody>
-            </table>
         </div>
+        
+        {% if messages %}
+                <div class="alert alert-info">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
 
-    </main><!-- End #main -->
-
+        <!-- Tableau pour afficher les enseignants -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Matricule</th>
+                    <th>Nom</th>
+                    <th>Prénom(s)</th>
+                    <th>Spécialité</th>
+                    <th>E-mail</th>
+                    <th>Mot de passe</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for enseignant in enseignants %}
+                <tr>
+                    <td>{{ enseignant.matricule }}</td>
+                    <td>{{ enseignant.username }}</td>
+                    <td>{{ enseignant.prenom }}</td>
+                    <td>{{ enseignant.specialite }}</td>
+                    <td>{{ enseignant.email }}</td>
+                    <td>{{ enseignant.password }}</td>
+                    <td>
+                        <a href="{% url 'userprincipale:editer' enseignant.matricule %}" class="btn btn-warning shadow btn-sm">
+                            <i class="bi bi-pencil"></i> Modifier
+                        </a>
+                        <form action="{% url 'userprincipale:supprimer' enseignant.matricule %}" method="POST" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Supprimer
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
 {% endblock %}

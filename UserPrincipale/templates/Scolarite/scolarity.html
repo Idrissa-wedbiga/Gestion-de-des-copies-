@@ -64,47 +64,66 @@
         <div class="container mt-5">
             <h2>Gestion des scolarités</h2>
 
-                <!-- Boutons pour les opérations -->
-            <div class="row justify-content-start">
+            <!-- Formulaire de recherche -->
+            <div class="row justify-content-start mb-4">
+                <div class="col-auto">
+                    <form method="GET" action="{% url 'userprincipale:scolarity' %}">
+                        <div class="input-group">
+                            <input type="text" name="qs" class="form-control" placeholder="Rechercher par matricule,nom ou spécialité" value="{{ request.GET.q }}">
+                            <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i> Rechercher</button>
+                        </div>
+                    </form>
+                </div>
                 <div class="col-auto">
                     <a href="{% url 'userprincipale:sc_ajouter' %}" class="btn btn-primary shadow">
                         <i class="bi bi-plus"></i> Ajouter
                     </a>
                 </div>
             </div>
+
         </div>
+        {% if messages %}
+            <div class="alert alert-info">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+                </div>
+        {% endif %}
 
             <!-- Tableau pour afficher les produits -->
-        <table class="table">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Matricule</th>
                     <th>Nom</th>
                     <th>Prénom(s)</th>
-                    <th>Emploi/Fonction</th>
-                    <th>Scolarité</th>
-                    <th>E-mail</th>
-                    <th>Action</th>
+                    <th>Emploi/Fonction </th>
+                    <th>Scolarité </th>
+                    <th>E-mail </th>
+                    <th>Mot de pass </th>
+                    <th method="POST">Action</th>
                 </tr>
             </thead>
             <tbody>
                 {% for scolarite in scolarites %}
                     <tr>
                         <td>{{ scolarite.matricule }}</td>
-                        <td>{{ scolarite.name }}</td>
+                        <td>{{ scolarite.username }}</td>
                         <td>{{ scolarite.prenom }}</td>
                         <td>{{ scolarite.fonction }}</td>
                         <td>{{ scolarite.etablissement }}</td>
                         <td>{{ scolarite.email }}</td>
+                        <td>{{scolarite.password}}</td>
                         <td>
-                            <a href="{% url 'userprincipale:sc_editer' scolarite.id %}" class="btn btn-warning shadow">
-                                <i class="bi bi-pencil"></i>
+                            <a href="{% url 'userprincipale:sc_editer' scolarite.matricule %}" class="btn btn-warning shadow btn-sm">
+                                <i class="bi bi-pencil"></i>Modifier
                             </a>
-                            
-                            <a href="{% url 'userprincipale:sc_supprimer' scolarite.id %}" class="btn btn-danger shadow">
-                                <i class="bi bi-trash"></i>
-                            </a>
-                            
+                            <form action="{% url 'userprincipale:sc_supprimer' scolarite.matricule %}" method="POST" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="bi bi-trash"></i> Supprimer
+                                </button>
+                            </form>                           
                         </td>
                     </tr>
                 {% endfor %}
