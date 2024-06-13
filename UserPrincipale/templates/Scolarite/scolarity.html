@@ -34,6 +34,12 @@
                 <i class="bi bi-people"></i>
                 <span>Enseignants</span>
             </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:etudiant' %}">
+                <i class="bi bi-people"></i>
+                <span>Etudiants</span>
+            </a>
         </li><!-- End Tables Nav -->
 
         <li class="nav-heading">Pages</li>
@@ -100,7 +106,7 @@
                     <th>Emploi/Fonction </th>
                     <th>Scolarité </th>
                     <th>E-mail </th>
-                    <th>Mot de pass </th>
+                    {% comment %} <th>Mot de pass </th> {% endcomment %}
                     <th method="POST">Action</th>
                 </tr>
             </thead>
@@ -113,7 +119,7 @@
                         <td>{{ scolarite.fonction }}</td>
                         <td>{{ scolarite.etablissement }}</td>
                         <td>{{ scolarite.email }}</td>
-                        <td>{{scolarite.password}}</td>
+                        {% comment %} <td>{{scolarite.password}}</td> {% endcomment %}
                         <td>
                             <a href="{% url 'userprincipale:sc_editer' scolarite.matricule %}" class="btn btn-warning shadow btn-sm">
                                 <i class="bi bi-pencil"></i>Modifier
@@ -129,7 +135,9 @@
                 {% endfor %}
             </tbody>
         </table>
-
+        {% if not scolarites %}
+            <p>Aucune scolarité trouvée.</p>
+        {% endif %}
     </section>
 
     </main><!-- End #main -->

@@ -1,4 +1,9 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from Authentification import models
+from django.db import transaction
+from Etudiant.models import EtudiantModels
+
 
 # Create your views here.
 def index (request):

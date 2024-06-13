@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from UserPrincipale.models import EnseignantModels
+from Enseignant.models import EnseignantModels
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
@@ -11,23 +11,6 @@ def index (request):
 
     return render(request,"enseignant/index.html")
 
-#connexion d'un enseignant
-# def enseignant_login (request):
-#     if request.method == 'POST':
-#         matricule = request.POST.get('matricule')
-#         password = request.POST.get('password')
-
-#         try:
-#             enseignant = EnseignantModels.objects.get(matricule=matricule)
-#             user = authenticate(request, username=enseignant.user.username, password=password)
-#             if user is not None:
-#                 login(request, user)
-#                 return redirect('Enseignant:index')
-#             else:
-#                 messages.error(request, "Matricule ou mot de passe incorrect.")
-#         except EnseignantModels.DoesNotExist:
-#             messages.error(request, "Matricule ou mot de passe incorrect.")
-#     return render(request, 'Authentification/login_page.html')
 
 def enseigant_profile (request):
 

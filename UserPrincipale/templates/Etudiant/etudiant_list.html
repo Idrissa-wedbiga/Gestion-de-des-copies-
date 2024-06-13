@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %} Dashboard Admin {% endblock %}
+
+{% block content %}
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:index' %}">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'Authentification:login' %}">
+                <i class="bi bi-house-check"></i>
+                <span>Accueil</span>
+            </a>
+        </li><!-- End Components Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:scolarity' %}">
+                <i class="bi bi-people"></i>
+                <span>Scolarités</span>
+            </a>
+        </li><!-- End Forms Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:enseignant' %}">
+                <i class="bi bi-people"></i>
+                <span>Enseignants</span>
+            </a>
+        </li><!-- End Tables Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:etudiant' %}">
+                <i class="bi bi-people"></i>
+                <span>Etudiants</span>
+            </a>
+        </li><!-- End Tables Nav -->
+
+        <li class="nav-heading">Pages</li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:usersprofile' %}">
+                <i class="bi bi-person"></i>
+                <span>Mon Profil</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
+
+    </ul>
+
+    </aside><!-- End Sidebar-->
+    <main id="main" class="main">
+
+    <div class="pagetitle">
+            <h1>Etudiants</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'userprincipale:index' %}">Home</a></li>
+                    <li class="breadcrumb-item active">Etudiants</li>
+                </ol>
+            </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+        <div class="container mt-5">
+            <h2>Liste des étudiants </h2>
+
+            <!-- Formulaire de recherche -->
+            <div class="row justify-content-start mb-4">
+                <div class="col-auto">
+                    <form method="GET" action="{% url 'userprincipale:etudiant' %}">
+                        <div class="input-group">
+                            <input type="text" name="qe" class="form-control" placeholder="Rechercher par matricule,nom ou spécialité" value="{{ request.GET.qe }}">
+                            <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i> Rechercher</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+     
+
+            <!-- Tableau pour afficher les produits -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Matricule</th>
+                    <th>Nom</th>
+                    <th>Prénom(s)</th>
+                    <th>Filière </th>
+                    <th>Promotion </th>
+                    <th>Niveau</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for etudiant in etudiants %}
+                    <tr>
+                        <td>{{ etudiant.matricule }}</td>
+                        <td>{{ etudiant.username }}</td>
+                        <td>{{ etudiant.prenom }}</td>
+                        <td>{{ etudiant.etudiant_filiere }}</td>
+                        <td>{{ etudiant.etudiant_promotion }}</td>
+                        <td>{{ etudiant.etudiant_niveau }}</td>
+                        <td>{{ etudiant.email}}</td>
+                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if not etudiants %}
+            <p>Aucun étudiant trouvé.</p>
+        {% endif %}
+
+    </section>
+
+    </main><!-- End #main -->
+
+{% endblock %}
+    

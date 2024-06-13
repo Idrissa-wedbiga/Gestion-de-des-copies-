@@ -59,23 +59,6 @@
                   <form class="mx-1 mx-md-4" action="{% url 'Authentification:signup' %}" method="POST">
                     {% csrf_token %}
   
-                    <div class="d-flex flex-row align-items-center mb-4" >
-                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="text" id="form3Example1c" class="form-control"  name="username"required/>
-                        
-                        <label class="form-label" for="form3Example1c">Nom</label>
-                      </div>
-                    </div>
-
-                    <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                          <input type="text" id="form3Example1c" class="form-control"  name="prenom"required/>
-                          <label class="form-label" for="form3Example1c">Prénom(s)</label>
-                        </div>
-                      </div>
-
                       <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div data-mdb-input-init class="form-outline flex-fill mb-0">
@@ -83,13 +66,77 @@
                           <label class="form-label" for="form3Example1c">Matricule(INE)</label>
                         </div>
                       </div>
-  
-                    <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="text" id="form3Example3c" class="form-control" name="email"required/>
-                        <label class="form-label" for="form3Example3c">Votre Adresse Email</label>
+
+                      <div class="d-flex flex-row align-items-center mb-4" >
+                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                          <input type="text" id="form3Example1c" class="form-control"  name="username"required/>
+                          
+                          <label class="form-label" for="form3Example1c">Nom</label>
+                        </div>
                       </div>
+  
+                      <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                          <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                            <input type="text" id="form3Example1c" class="form-control"  name="prenom"required/>
+                            <label class="form-label" for="form3Example1c">Prénom(s)</label>
+                          </div>
+                      </div>
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                            <select id="form3Example1c" class="form-control" name="etudiant_filiere" required>
+                                <option value="" disabled selected>Choisir la filière</option>
+                                <option value="Informatique">Informatique</option>
+                                <option value="genie_civil">Génie Civil</option>
+                                <option value="electromecanique">Électromécanique</option>
+                                <option value="Lettre moderne">Lettre moderne</option>
+                                <option value="Lingustique">Lingustique</option>
+                                <option value="MPCI">MPCI</option>
+                                <!-- Ajoutez d'autres options ici -->
+                            </select>
+                            <label class="form-label" for="form3Example1c">Filière</label>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                            <select id="form3Example2c" class="form-control" name="etudiant_promotion" required>
+                                <option value="" disabled selected>Choisir la promotion</option>
+                                <option value="2019_2020">2019-2020</option>
+                                <option value="2020_2021">2020-2021</option>
+                                <option value="2021_2022">2021-2022</option>
+                                <option value="2022_2023">2022-2023</option>
+                                <!-- Ajoutez d'autres options ici -->
+                            </select>
+                            <label class="form-label" for="form3Example2c">Promotion</label>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                            <select id="form3Example3c" class="form-control" name="etudiant_niveau" required>
+                                <option value="" disabled selected>Choisir le niveau</option>
+                                <option value="L1">Licence 1</option>
+                                <option value="L2">Licence 2</option>
+                                <option value="L3">Licence 3</option>
+                                <option value="M1">Master 1</option>
+                                <option value="M2">Master 2</option>
+                                <!-- Ajoutez d'autres options ici -->
+                            </select>
+                            <label class="form-label" for="form3Example3c">Niveau</label>
+                        </div>
+                    </div>
+                    
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                        <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                          <input type="text" id="form3Example3c" class="form-control" name="email"required/>
+                          <label class="form-label" for="form3Example3c">Votre Adresse Email</label>
+                        </div>
                     </div>
   
                     <div class="d-flex flex-row align-items-center mb-4">

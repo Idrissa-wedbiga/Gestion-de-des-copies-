@@ -29,6 +29,12 @@
                 <span>Enseignants</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'userprincipale:etudiant' %}">
+                <i class="bi bi-people"></i>
+                <span>Etudiants</span>
+            </a>
+        </li>
         <li class="nav-heading">Pages</li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="{% url 'userprincipale:usersprofile' %}">
@@ -89,7 +95,7 @@
                     <th>Prénom(s)</th>
                     <th>Spécialité</th>
                     <th>E-mail</th>
-                    <th>Mot de passe</th>
+                    {% comment %} <th>Mot de passe</th> {% endcomment %}
                     <th>Action</th>
                 </tr>
             </thead>
@@ -101,7 +107,7 @@
                     <td>{{ enseignant.prenom }}</td>
                     <td>{{ enseignant.specialite }}</td>
                     <td>{{ enseignant.email }}</td>
-                    <td>{{ enseignant.password }}</td>
+                    {% comment %} <td>{{ enseignant.password }}</td> {% endcomment %}
                     <td>
                         <a href="{% url 'userprincipale:editer' enseignant.matricule %}" class="btn btn-warning shadow btn-sm">
                             <i class="bi bi-pencil"></i> Modifier
@@ -117,6 +123,9 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% if not enseignants %}
+            <p>Aucun enseignant trouvé.</p>
+        {% endif %}
     </div>
 </main>
 {% endblock %}

@@ -1,13 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import ScolariteModels
-from .models import EnseignantModels
+from Etudiant.models import EtudiantModels
+from Enseignant.models import EnseignantModels
 from django.contrib import messages
+from ScolaritePersonal.models import ScolariteModels
 from .forms import ScolariteForm, EnseignantForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import Q
+from django.contrib.auth.decorators import user_passes_test
+from django.views.decorators.csrf import csrf_protect
 
-
+@csrf_protect
+#@user_passes_test(lambda u: u.is_superuser)
 def index(request):
 
     return render(request, "userprincipale/index.html")
@@ -105,6 +109,7 @@ def sc_ajouter(request):
         password = request.POST.get('password')
         fonction = request.POST.get('fonction')
         etablissement = request.POST.get('etablissement')
+        user_type='scolarite'
 
         # Créer un nouvel objet Scolarite
         scolarite = ScolariteModels.objects.create(matricule=matricule, username=username,prenom=prenom, email=email, password=password, fonction=fonction, etablissement=etablissement)
@@ -147,3 +152,25 @@ def sc_supprimer(request, matricule):
 def usersprofile(request):
 
     return render(request, "Profil/users_profile.html")
+
+#Etudiant
+def etudiant(request):
+    query = request.GET.get('qe')
+    if query:
+        etudiants = EtudiantModels.objects.filter(
+      
+                Q(matricule__icontains=query) |
+                Q(username__icontains=query) |
+                Q(prenom__icontains=query) |
+                Q(etudiant_filiere__icontains=query) |
+                Q(etudiant_niveau__icontains=query) |
+                Q(etudiant_promotion__icontains=query)
+            
+        )
+    else:
+        etudiants = EtudiantModels.objects.filter()
+
+    message = messages.get_messages(request)
+
+    context = {'etudiants': etudiants, 'message': message}
+    return render(request, "Etudiant/etudiant_list.html", context)
