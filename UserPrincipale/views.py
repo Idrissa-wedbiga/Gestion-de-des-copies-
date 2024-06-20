@@ -9,6 +9,10 @@ from django.urls import reverse
 from django.db.models import Q
 from django.contrib.auth.decorators import user_passes_test
 from django.views.decorators.csrf import csrf_protect
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
+from django.contrib.auth import get_user_model
+
 
 @csrf_protect
 #@user_passes_test(lambda u: u.is_superuser)
@@ -45,10 +49,37 @@ def ajouter(request):
         specialite = request.POST.get('specialite')
         email = request.POST.get('email')
         password = request.POST.get('password')
+        user_type ='enseignant'
         
+        try:
+           validate_email(email)
+        except ValidationError:
+            error = True
+            message = "Veuillez entrer un email valide !"
+
+        User = get_user_model()
+        
+        user = User.objects.filter(email=email).first()
+        existing_user = User.objects.filter(matricule=matricule).first()
+
+        if existing_user:
+            error = True
+            message = f"Le matricule {matricule} existe déjà !"
+            
+        if user:
+            error = True
+            message = f"Un utilisateur avec l'email: {email} existe déjà !"
 
         # Créer un nouvel objet Scolarite
-        enseignant = EnseignantModels.objects.create(matricule=matricule, username=username,prenom=prenom,specialite=specialite, email=email, password=password)
+        enseignant = EnseignantModels.objects.create(
+            matricule=matricule, 
+            username=username,
+            prenom=prenom,specialite=specialite, 
+            email=email,
+            user_type=user_type, 
+            password=password
+            )
+    
         enseignant.save()
         messages.success(request, 'Enseignant bien ajouté !')
         
@@ -56,7 +87,8 @@ def ajouter(request):
         return redirect('userprincipale:enseignant')
     else:
         # Afficher le formulaire vide
-        return render(request, "Enseignant/ajouter.html")
+        context = {'message': message, 'error': error}
+        return render(request, "Enseignant/ajouter.html",context)
     
    
 def editer(request, matricule):
@@ -100,7 +132,10 @@ def scolarity(request):
 
 def sc_ajouter(request):
    # Verifier si le formulaire a ete soumis
+    error = False
+    message = ""
     if request.method == 'POST':
+        
         # Récupérer les données soumises par l'utilisateur
         matricule = request.POST.get('matricule')
         username = request.POST.get('username')
@@ -110,9 +145,37 @@ def sc_ajouter(request):
         fonction = request.POST.get('fonction')
         etablissement = request.POST.get('etablissement')
         user_type='scolarite'
+        
+        try:
+           validate_email(email)
+        except ValidationError:
+            error = True
+            message = "Veuillez entrer un email valide !"
+
+        User = get_user_model()
+        
+        user = User.objects.filter(email=email).first()
+        existing_user = User.objects.filter(matricule=matricule).first()
+
+        if existing_user:
+            error = True
+            message = f"Le matricule {matricule} existe déjà !"
+            
+        if user:
+            error = True
+            message = f"Un utilisateur avec l'email: {email} existe déjà !"
 
         # Créer un nouvel objet Scolarite
-        scolarite = ScolariteModels.objects.create(matricule=matricule, username=username,prenom=prenom, email=email, password=password, fonction=fonction, etablissement=etablissement)
+        scolarite = ScolariteModels.objects.create(
+            matricule=matricule,                                      
+            username=username,
+            prenom=prenom, 
+            email=email, 
+            password=password, 
+            fonction=fonction,
+            user_type=user_type, 
+            etablissement=etablissement
+            )
         scolarite.save()
         messages.success(request, 'Scolarité bien ajoutée !')
         
@@ -120,8 +183,9 @@ def sc_ajouter(request):
         return redirect('userprincipale:scolarity')
     else:
         # Afficher le formulaire vide
-        return render(request, 'Scolarite/sc_ajouter.html')
-
+        context = {'message': message, 'error': error}
+        return render(request, 'Scolarite/sc_ajouter.html',context)
+    
 
 def sc_editer(request, matricule):
     # Récupérer la scolarité à modifier
@@ -153,7 +217,7 @@ def usersprofile(request):
 
     return render(request, "Profil/users_profile.html")
 
-#Etudiant
+#Afficher les etudiants sur le dashbord de l'administrateur+
 def etudiant(request):
     query = request.GET.get('qe')
     if query:

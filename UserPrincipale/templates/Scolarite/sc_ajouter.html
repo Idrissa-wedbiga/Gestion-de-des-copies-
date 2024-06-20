@@ -77,7 +77,11 @@
             <div class="container mt-5">
                 <div class="container mt-5">
                     <h2>Ajouter une scolarité</h2>
-
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert" data-mdb-color="danger">
+                      {{message}}
+                    </div>
+                  {% endif %}
                     <form class="p-4 shadow" action="{% url 'userprincipale:sc_ajouter' %}" style="width: 50%;" method="POST">
                         {% csrf_token %}
                         <div class="mb-3">
@@ -100,12 +104,11 @@
                     
                         <div class="mb-3">
                             <label for="Fonction" class="form-label">Emploi/Fonction</label>
-                            {% comment %} <input type="text" name="fonction" class="form-control" id="Fonction" required> {% endcomment %}
                             <select id="form3Example3c" class="form-control" name="fonction" required>
                                     <option value="" disabled selected>Choisir la scolarité</option>
-                                    <option value="Chef de scolarité">Chef de scolarité</option>
-                                    <option value="Agent Administratif">Agent Administratif</option>
-                                    <option value="ASSU">AASU</option>
+                                    <option value="CASU-Chef de scolarité">Chef de scolarité</option>
+                                    <option value="CASU">CASU</option>
+                                    <option value="AASU">AASU</option>
                                     <option value="Stagiaire">Stagiaire</option>
                                     <!-- Ajoutez d'autres options ici -->
                                 </select>
@@ -123,9 +126,9 @@
                                 <select id="form3Example3c" class="form-control" name="etablissement" required>
                                     <option value="" disabled selected>Choisir la scolarité</option>
                                     <option value="UFR-ST">UFR-ST</option>
-                                    <option value="L2">UFR-SEG</option>
-                                    <option value="L3">UFR-LSH</option>
-                                    <option value="M1">UIT</option>
+                                    <option value="UFR-SEG">UFR-SEG</option>
+                                    <option value="UFR-LSH">UFR-LSH</option>
+                                    <option value="IUT">IUT</option>
                                     <!-- Ajoutez d'autres options ici -->
                                 </select>
                             </div>

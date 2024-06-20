@@ -28,9 +28,15 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'ScolaritePersonal:copie_envoyee' %}">
+                <i class="bi bi-files"></i>
+                <span>Copies envoyées</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link collapsed" href="{% url 'ScolaritePersonal:copie_corrigee' %}">
                 <i class="bi bi-files"></i>
-                <span>Copies corigées</span>
+                <span>Copies corrigées</span>
             </a>
         </li><!-- End Forms Nav -->
 
@@ -65,7 +71,7 @@
             <div class="container mt-5">
                 <div class="container mt-5">
                     <h2> Envoyer une évaluation</h2>
-                    <form class=" p-4 shadow" style="width: 80%;">
+                    {% comment %} <form class=" p-4 shadow" style="width: 80%;">
                         <div class="mb-3">
                             <label for="nom" class="form-label">Fillière</label>
                             <input type="text" name="Matriclue" class="form-control" id="nom" required>
@@ -98,7 +104,35 @@
                             <button type="submit" class="btn btn-warning shadow">
                                 <i class="bi bi-send-fill"></i> Envoyer</button>
                         </div>
+                    </form> {% endcomment %}
+                    <form method="post" enctype="multipart/form-data" class="form-control" class=" p-4 shadow">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="form-group">
+                           
+                            <input multiple type="file" name="dossier" id="id_dossier" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
                     </form>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var dateField = document.getElementById('date_field');
+                            var now = new Date();
+                            var formattedDate = now.toISOString().slice(0, 19).replace('T', ' ');
+                            dateField.value = formattedDate;
+                        });
+                    </script>
+                    <script>
+                        var enseignants = [];
+                        
+                        document.addEventListener('DOMContentLoaded', function() {
+                            fetch("{% url 'ScolaritePersonal:get_enseignant_details' %}")
+                                .then(response => response.json())
+                                .then(data => {
+                                    enseignants = data;
+                                });
+                        });
+                        </script>                        
                   </div>
         </section>
                                            

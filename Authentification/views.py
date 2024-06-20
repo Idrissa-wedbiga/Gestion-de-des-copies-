@@ -1,5 +1,8 @@
+from urllib import request
 from django.shortcuts import render,redirect
 from django.core.validators import validate_email
+from Authentification.backends import MatriculeBackend
+from Authentification.forms import MatriculeAuthenticationForm
 from Authentification.models import CustomUser
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
@@ -10,46 +13,38 @@ from Enseignant.models import EnseignantModels
 from Etudiant.models import EtudiantModels
 from ScolaritePersonal.models import ScolariteModels
 from django.core.exceptions import ValidationError
-from django.core.validators import validate_email
 from django.contrib.auth import get_backends
+from django.contrib.auth import authenticate
+from django.contrib.auth.views import LoginView
+from django.urls import reverse
+from django.contrib import messages
+
 
     # Create your views here.
     
-@requires_csrf_token
-def login_view(request):
-    message = ""
-   
-    if request.method == 'POST':
-        matricule = request.POST.get('matricule', None)
-        password = request.POST.get('password', None)
-
-        # Essayer d'authentifier en tant qu'utilisateur générique
-        user = CustomUser.objects.filter(matricule=matricule).first()
-        if user and check_password(password, user.password):
-            if hasattr(user, 'enseignant_profile'):
-                request.session['user_matricule'] = user.matricule
-                return redirect('Enseignant:index')
-            elif hasattr(user, 'scolarite_profile'):
-                request.session['user_matricule'] = user.matricule
-                return redirect('ScolaritePersonal:index')
-            elif user.is_superuser:
-                # Spécifier le backend pour le superuser
-                for backend in get_backends():
-                    user.backend = f"{backend.__module__}.{backend.__class__.__name__}"
-                    login(request, user)
-                    return redirect('userprincipale:index')
-            elif hasattr(user, 'etudiant_profile'):
-                request.session['user_matricule'] = user.matricule
-                return redirect('Etudiant:index')
+class CustomLoginView(LoginView):
+    
+    authentication_form = MatriculeAuthenticationForm
+    template_name = 'login_page.html'
+    
+    def get_success_url(self):
+        user = self.request.user
+        if user.user_type == 'student':
+            return reverse('Etudiant:index')
+        elif user.user_type == 'enseignant':
+            return reverse('Enseignant:index')
+        elif user.user_type == 'scolarite':
+            return reverse('ScolaritePersonal:index')
+        elif user.is_superuser:
+            return reverse('userprincipale:index')
         else:
-            message = "Matricule ou mot de passe incorrect."
-    
-    context = {'message': message}
-    return render(request, "login_page.html", context)
+            messages.error(self.request, 'Matricule ou mot de passe incorrect. Veuillez réessayer.')
+            return reverse('Authentification:login')
+    def form_valid(self, form):
+        # Rediriger vers l'URL de succès appropriée après la validation du formulaire
+        return super().form_valid(form)
 
-
-
-    
+        
 def signup_view(request):
     error = False
     message = ""
@@ -64,6 +59,7 @@ def signup_view(request):
         etudiant_filiere = request.POST.get('etudiant_filiere', None)
         etudiant_niveau = request.POST.get('etudiant_niveau', None)
         etudiant_promotion = request.POST.get('etudiant_promotion', None)
+        user_type = 'student'
 
         try:
             validate_email(email)
@@ -99,7 +95,8 @@ def signup_view(request):
             password=password,
             etudiant_filiere=etudiant_filiere,
             etudiant_niveau=etudiant_niveau,
-            etudiant_promotion=etudiant_promotion
+            etudiant_promotion=etudiant_promotion,
+            user_type=user_type
         )
         etudiant.save()
         print(etudiant)

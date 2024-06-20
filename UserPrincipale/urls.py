@@ -18,6 +18,7 @@ urlpatterns=[
     path('sc_ajouter', views.sc_ajouter, name='sc_ajouter'),
     path('sc_editer/<str:matricule>/', views.sc_editer, name='sc_editer'),
     path('sc_supprimer/<str:matricule>/', views.sc_supprimer, name='sc_supprimer'),
-    #Etudiant
+    
+    #Etudiant// Afficher les etudiants sur le dashbord de l'admin
     path('Etudiant/', views.etudiant, name='etudiant'),
 ]

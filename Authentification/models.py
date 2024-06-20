@@ -19,7 +19,7 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, matricule, email, username, prenom, password=None, **extra_fields):
+    def create_superuser(self, matricule, email, name, prenom, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
@@ -28,7 +28,7 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self.create_user(matricule, email, username, prenom, password, **extra_fields)
+        return self.create_user(matricule, email, name, prenom, password, **extra_fields)
 
 class CustomUser(AbstractUser):
     USER_TYPE_CHOICES = [
@@ -36,7 +36,7 @@ class CustomUser(AbstractUser):
         ('scolarite', 'Scolarite'),
         ('enseignant', 'Enseignant')
     ]
-    user_type = models.CharField(choices=USER_TYPE_CHOICES, default='student', max_length=20)
+    user_type = models.CharField(choices=USER_TYPE_CHOICES, default='', max_length=20)
     matricule = models.CharField(max_length=100, primary_key=True, verbose_name='Matricule',default='')
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=100 ,blank=True, null=True)
@@ -59,27 +59,16 @@ class CustomUser(AbstractUser):
     
     @property
     def is_student(self):
-        # Déterminez si l'utilisateur est un étudiant
-        # Vous pouvez utiliser un champ existant ou en ajouter un pour représenter cela
-        etudiant_filiere = self.student_profile.etudiant_filiere
-        return self.student_profile is not None
+        return self.user_type == 'student'
     
     @property
     def is_enseignant(self):
-        # Déterminez si l'utilisateur est un enseignant
-        # Vous pouvez utiliser un champ existant ou en ajouter un pour représenter cela
-        specialite = self.enseignant_profile.specialite
-
-        return self.enseignant_profile is not None
+        return self.user_type == 'enseignant'
     
     @property
     def is_scolarite(self):
-        # Déterminez si l'utilisateur est de la scolarité
-        # Vous pouvez utiliser un champ existant ou en ajouter un pour représenter cela
-        etablissement = self.scolarite_profile.etablissement
-
-        return self.scolarite_profile is not None
+        return self.user_type == 'scolarite'
+    
     @property
     def is_admin(self):
-        user = self
-        return user.is_superuser
+        return self.is_superuser

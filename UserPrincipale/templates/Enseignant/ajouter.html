@@ -74,6 +74,11 @@
             <div class="container mt-5">
                 <div class="container mt-5">
                     <h2>Ajouter un enseignant</h2>
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert" data-mdb-color="danger">
+                      {{message}}
+                    </div>
+                  {% endif %}
                     <form class=" p-4 shadow" action="{% url 'userprincipale:ajouter' %}"style="width: 50%;" method="POST">
                         {% csrf_token %}
                         <div class="mb-3">
