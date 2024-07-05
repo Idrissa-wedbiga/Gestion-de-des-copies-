@@ -25,7 +25,13 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="{% url 'ScolaritePersonal:envoyer' %}">
                 <i class="bi bi-files"></i>
-                <span>Envoyer copies</span>
+                <span>Envoyer|Enseignant</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'ScolaritePersonal:send_student' %}">
+                <i class="bi bi-files"></i>
+                <span>Envoyer|Etudiant</span>
             </a>
         </li>
         <li class="nav-item">
@@ -89,7 +95,7 @@
                                         <i class="bi bi-copy"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>10 521</h6> 
+                                        <h6>{{ total_copies }}</h6> 
                                         <span class="text-muted small pt-2 ps-1">Envoyées aux enseignants </span> 
                                     </div>
                                 </div>
@@ -111,7 +117,7 @@
                                         <i class="bi bi-people"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>47</h6>
+                                        <h6>{{ total_enseignants }}</h6>
                                         <span class="text-muted small pt-2 ps-1">Ayant reçcu des copies </span>
                                     </div>
                                 </div>
@@ -131,8 +137,8 @@
                                         <i class="bi bi-files"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>24</h6>
-                                        <span class="text-muted small pt-2 ps-1">Non corigés </span>
+                                        <h6>{{ total_modules }}</h6>
+                                        <span class="text-muted small pt-2 ps-1">envoyé </span>
                                     </div>
                                 </div>
                             </div>
@@ -148,78 +154,49 @@
                             <div class="card-body">
                                 <h5 class="card-title">Copies corigées </h5>
 
-                                <table class="table table-borderless ">
+                                <table class="table table-borderless">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Promotion && Année</th>
-                                            <th scope="col">Modules</th>
-                                            <th scope="col">Nombre de copies </th>
-                                            <th scope="col">Enseignant</th>
-                                            <th scope="col">Telechargement </th>
+                                            <th scope="col">Promotion</th>
+                                            <th scope="col">Module</th>
+                                            <th scope="col">Niveau</th>
+                                            {% comment %} <th scope="col">UFR</th> {% endcomment %}
+                                            <th scope="col">Nombre de copies</th>
+                                            <th scope="col">Date d'envoi</th>
+                                            <th scope="col">Téléchargement</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% for copie in copies_recues %}
                                         <tr>
-                                            <th scope="row">MPCI - 2020-2021</th>
-                                            <td>Statistique</td>
-                                            
-                                            <td>664</td>
-                                            <td>Dr BAGRE</td>
-                                            <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
+                                            <td>{{ copie.promotion }}</td>
+                                            <td>{{ copie.module }}</td>
+                                            <td>{{ copie.niveau }}</td>
+                                            {% comment %} <td>{{ copie.ufr }}</td> {% endcomment %}
+                                            <td>{{ copie.nombre }}</td>
+                                            <td>{{ copie.date|date:"d/m/Y H:i" }}</td>
+                                            <td><a href="{{ copie.dossier.url }}" class="badge bg-danger" download>Télécharger</a></td>
                                         </tr>
+                                        {% empty %}
                                         <tr>
-                                            <th scope="row">MPCI - 2020-2021</th>
-                                            <td>Algèbre</td>
-                                            
-                                            <td>447</td>
-                                            <td>Dr DEMBEGA</td>
-                                            <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
+                                            <td colspan="7">Aucune copie reçue.</td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row">MPCI - 2020-2021</th>
-                                            <td>Analyse</td>
-                                            
-                                            <td>1147</td>
-                                            <td>Dr DIANDA</td>
-                                            <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Informatique - 2020-2021</th>
-                                            <td>POO</td>
-                                            
-                                            <td>967</td>
-                                            <td>Dr BIKIENGA</td>
-                                            <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">MPCI - 2020-2021</th>
-                                            <td>Algorithemique</td>
-                                            
-                                            <td>1165</td>
-                                            <td>Dr BIKIENGA</td>
-                                            <td><a href="chemin/vers/statistique.pdf" class="badge bg-success" download>Télécharger</a></td>
-                                        </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
+                                <!-- Pagination example -->
+                                <!-- Replace with your own pagination implementation -->
                                 <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                                     <ul class="pagination">
-                                      <li class="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                                      <li class="paginate_button page-item active"><a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                                      </li>
-                                      <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-                                      </li>
-                                      <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">3</a>
-                                      </li>
-                                      <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0" class="page-link">4</a>
-                                      </li>
-                                      <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="5" tabindex="0" class="page-link">5</a>
-                                      </li>
-                                      <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="6" tabindex="0" class="page-link">6</a>
-                                      </li>
-                                      <li class="paginate_button page-item next" id="dataTable_next"><a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
-                                    </li>
-                                  </ul>
-                                  </div>        
+                                        <li class="paginate_button page-item previous disabled" id="dataTable_previous">
+                                            <a href="#" aria-controls="dataTable" tabindex="0" class="page-link">Précedent</a>
+                                        </li>
+                                        <!-- Pagination items here -->
+                                        <li class="paginate_button page-item next" id="dataTable_next">
+                                            <a href="#" aria-controls="dataTable" tabindex="0" class="page-link">Suivant</a>
+                                        </li>
+                                    </ul>
+                                </div>       
                 </div>
             </div><!-- End Left side columns -->
         </div>

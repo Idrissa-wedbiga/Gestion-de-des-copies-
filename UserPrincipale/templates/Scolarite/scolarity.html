@@ -3,60 +3,52 @@
 {% block title %} Dashboard Admin {% endblock %}
 
 {% block content %}
-    <!-- ======= Sidebar ======= -->
+    <!-- Sidebar -->
     <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'userprincipale:index' %}">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'Authentification:login' %}">
+                    <i class="bi bi-house-check"></i>
+                    <span>Accueil</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'userprincipale:scolarity' %}">
+                    <i class="bi bi-people"></i>
+                    <span>Scolarités</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'userprincipale:enseignant' %}">
+                    <i class="bi bi-people"></i>
+                    <span>Enseignants</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'userprincipale:etudiant' %}">
+                    <i class="bi bi-people"></i>
+                    <span>Étudiants</span>
+                </a>
+            </li>
+            <li class="nav-heading">Pages</li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'userprincipale:usersprofile' %}">
+                    <i class="bi bi-person"></i>
+                    <span>Mon Profil</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    <!-- End Sidebar -->
 
-    <ul class="sidebar-nav" id="sidebar-nav">
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'userprincipale:index' %}">
-                <i class="bi bi-grid"></i>
-                <span>Dashboard</span>
-            </a>
-        </li><!-- End Dashboard Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'Authentification:login' %}">
-                <i class="bi bi-house-check"></i>
-                <span>Accueil</span>
-            </a>
-        </li><!-- End Components Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'userprincipale:scolarity' %}">
-                <i class="bi bi-people"></i>
-                <span>Scolarités</span>
-            </a>
-        </li><!-- End Forms Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'userprincipale:enseignant' %}">
-                <i class="bi bi-people"></i>
-                <span>Enseignants</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'userprincipale:etudiant' %}">
-                <i class="bi bi-people"></i>
-                <span>Etudiants</span>
-            </a>
-        </li><!-- End Tables Nav -->
-
-        <li class="nav-heading">Pages</li>
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'userprincipale:usersprofile' %}">
-                <i class="bi bi-person"></i>
-                <span>Mon Profil</span>
-            </a>
-        </li><!-- End Profile Page Nav -->
-
-    </ul>
-
-    </aside><!-- End Sidebar-->
     <main id="main" class="main">
-
-    <div class="pagetitle">
+        <div class="pagetitle">
             <h1>Scolarité</h1>
             <nav>
                 <ol class="breadcrumb">
@@ -64,83 +56,78 @@
                     <li class="breadcrumb-item active">Scolarité</li>
                 </ol>
             </nav>
-    </div><!-- End Page Title -->
+        </div>
+        <!-- End Page Title -->
 
-    <section class="section profile">
-        <div class="container mt-5">
-            <h2>Gestion des scolarités</h2>
-
-            <!-- Formulaire de recherche -->
-            <div class="row justify-content-start mb-4">
-                <div class="col-auto">
-                    <form method="GET" action="{% url 'userprincipale:scolarity' %}">
-                        <div class="input-group">
-                            <input type="text" name="qs" class="form-control" placeholder="Rechercher par matricule,nom ou spécialité" value="{{ request.GET.q }}">
-                            <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i> Rechercher</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-auto">
-                    <a href="{% url 'userprincipale:sc_ajouter' %}" class="btn btn-primary shadow">
-                        <i class="bi bi-plus"></i> Ajouter
-                    </a>
+        <section class="section profile">
+            <div class="container mt-5">
+                <h2>Gestion des scolarités</h2>
+                <!-- Formulaire de recherche -->
+                <div class="row justify-content-start mb-4">
+                    <div class="col-auto">
+                        <form method="GET" action="{% url 'userprincipale:scolarity' %}">
+                            <div class="input-group">
+                                <input type="text" name="qs" class="form-control" placeholder="Rechercher par matricule, nom ou spécialité" value="{{ request.GET.q }}">
+                                <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i> Rechercher</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-auto">
+                        <a href="{% url 'userprincipale:sc_ajouter' %}" class="btn btn-primary shadow">
+                            <i class="bi bi-plus"></i> Ajouter
+                        </a>
+                    </div>
                 </div>
             </div>
 
-        </div>
-        {% if messages %}
-            <div class="alert alert-info">
-                {% for message in messages %}
-                    {{ message }}
-                {% endfor %}
+            {% if messages %}
+                <div class="alert alert-info">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
                 </div>
-        {% endif %}
+            {% endif %}
 
-            <!-- Tableau pour afficher les produits -->
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Matricule</th>
-                    <th>Nom</th>
-                    <th>Prénom(s)</th>
-                    <th>Emploi/Fonction </th>
-                    <th>Scolarité </th>
-                    <th>E-mail </th>
-                    {% comment %} <th>Mot de pass </th> {% endcomment %}
-                    <th method="POST">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for scolarite in scolarites %}
+            <!-- Tableau pour afficher les scolarités -->
+            <table class="table table-hover">
+                <thead>
                     <tr>
-                        <td>{{ scolarite.matricule }}</td>
-                        <td>{{ scolarite.username }}</td>
-                        <td>{{ scolarite.prenom }}</td>
-                        <td>{{ scolarite.fonction }}</td>
-                        <td>{{ scolarite.etablissement }}</td>
-                        <td>{{ scolarite.email }}</td>
-                        {% comment %} <td>{{scolarite.password}}</td> {% endcomment %}
-                        <td>
-                            <a href="{% url 'userprincipale:sc_editer' scolarite.matricule %}" class="btn btn-warning shadow btn-sm">
-                                <i class="bi bi-pencil"></i>Modifier
-                            </a>
-                            <form action="{% url 'userprincipale:sc_supprimer' scolarite.matricule %}" method="POST" class="d-inline">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-danger">
-                                    <i class="bi bi-trash"></i> Supprimer
-                                </button>
-                            </form>                           
-                        </td>
+                        <th>Matricule</th>
+                        <th>Nom</th>
+                        <th>Prénom(s)</th>
+                        <th>Emploi/Fonction</th>
+                        <th>Scolarité</th>
+                        <th>E-mail</th>
+                        <th>Action</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% if not scolarites %}
-            <p>Aucune scolarité trouvée.</p>
-        {% endif %}
-    </section>
-
-    </main><!-- End #main -->
-
+                </thead>
+                <tbody>
+                    {% for scolarite in scolarites %}
+                        <tr>
+                            <td>{{ scolarite.matricule }}</td>
+                            <td>{{ scolarite.username }}</td>
+                            <td>{{ scolarite.prenom }}</td>
+                            <td>{{ scolarite.fonction }}</td>
+                            <td>{{ scolarite.etablissement }}</td>
+                            <td>{{ scolarite.email }}</td>
+                            <td>
+                                <a href="{% url 'userprincipale:sc_editer' scolarite.matricule %}" class="btn btn-warning shadow btn-sm">
+                                    <i class="bi bi-pencil"></i> Modifier
+                                </a>
+                                <form action="{% url 'userprincipale:sc_supprimer' scolarite.matricule %}" method="POST" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="bi bi-trash"></i> Supprimer
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if not scolarites %}
+                <p>Aucune scolarité trouvée.</p>
+            {% endif %}
+        </section>
+    </main>
 {% endblock %}
-    

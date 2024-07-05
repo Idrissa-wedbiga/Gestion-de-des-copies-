@@ -114,3 +114,11 @@ def logout_view(request):
 def home(request):
     
     return render(request,"home.html")
+
+@login_required
+def profil_view(request):
+    context = {
+        'user': request.user,
+        # Ajoutez d'autres contextes ici si nécessaire
+    }
+    return render(request, 'base.html', context)

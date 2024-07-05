@@ -149,85 +149,47 @@
                             <div class="card-body">
                                 <h5 class="card-title">Copies corrigées </h5>
 
-                                <table class="table table-borderless ">
+                                <table class="table table-borderless">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Modules</th>
-                                            <th scope="col">Volume horaire</th>
-                                            <th scope="col">Crédits </th>
-                                            <th scope="col">Notes </th>
-                                            <th scope="col">Enseignant </th>
-                                            <th scope="col">Semestre </th>
-                                            <th scope="col">Telechargement</th>
+                                            <th scope="col">Module</th>
+                                            <th scope="col">Voir Copie</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Télécharger</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% for file in student_files_list %}
                                         <tr>
-                                            <td>Statistique</td>
-                                            <td>24 h</td>
-                                            <td>3</td>
-                                            <td>18</td>
-                                            <td>Dr BAGRE</td>
-                                            <td>s4</td>
-                                            <td><span class="badge bg-success">Telecharger</span></td>
+                                            <td>{{ file.module }}</td>
+                                            <td><a href="{{ file.fichier.url }}" target="_blank">Voir Copie</a></td>
+                                            <td>{{ file.telechargement_date|date:"d/m/Y H:i" }}</td>
+                                            <td><a href="{{ file.fichier.url }}" download>Télécharger</a></td>
                                         </tr>
-                                        <tr>
-                                            <td>Algèbre</td>
-                                            <td>24 h</td>
-                                            <td>3</td>
-                                            <td>18</td>
-                                            <td>Dr DIANDA</td>
-                                            <td>s4</td>
-                                            <td><span class="badge bg-success">Telecharger</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Analyse</td>
-                                            <td>24 h</td>
-                                            <td>3</td>
-                                            <td>18</td>
-                                            <td>Dr SAWADOGO</td>
-                                            <td>s4</td>
-                                            <td><span class="badge bg-success">Telecharger</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Base de donnée</td>
-                                            <td>24 h</td>
-                                            <td>3</td>
-                                            <td>18</td>
-                                            <td>Pr OUEDRAOGO</td>
-                                            <td>s6</td>
-                                            <td><span class="badge bg-success">Telecharger</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Expression oral</td>
-                                            <td>12 h</td>
-                                            <td>3</td>
-                                            <td>18</td>
-                                            <td>Dr OUEDRAOGO</td>
-                                            <td>s2</td>
-                                            <td><span class="badge bg-success">Telecharger</span></td>
-                                        </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
-                                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                                    <ul class="pagination">
-                                      <li class="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                                      <li class="paginate_button page-item active"><a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                                      </li>
-                                      <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-                                      </li>
-                                      <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">3</a>
-                                      </li>
-                                      <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0" class="page-link">4</a>
-                                      </li>
-                                      <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="5" tabindex="0" class="page-link">5</a>
-                                      </li>
-                                      <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="6" tabindex="0" class="page-link">6</a>
-                                      </li>
-                                      <li class="paginate_button page-item next" id="dataTable_next"><a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
-                                    </li>
-                                  </ul>
-                                  </div>                    
+
+                                <!-- Pagination -->
+                                <div class="pagination">
+                                    <span class="step-links">
+                                        {% if student_files_list.has_previous %}
+                                        <a href="?page=1">&laquo; first</a>
+                                        <a href="?page={{ student_files_list.previous_page_number }}">previous</a>
+                                        {% endif %}
+                            
+                                        <span class="current">
+                                            Page {{ student_files_list.number }} of {{ student_files_list.paginator.num_pages }}.
+                                        </span>
+                            
+                                        {% if student_files_list.has_next %}
+                                        <a href="?page={{ student_files_list.next_page_number }}">next</a>
+                                        <a href="?page={{ student_files_list.paginator.num_pages }}">last &raquo;</a>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                            </div>                  
                             </div>
 
                         </div>

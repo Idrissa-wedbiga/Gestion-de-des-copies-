@@ -71,8 +71,8 @@
         <section class="section profile">
             <div class="container mt-5">
                 <div class="container mt-5">
-                    <h2> Envoyer une évaluation</h2>
-                    <form class=" p-4 shadow" style="width: 80%;">
+                    <h2> Envoyer copies corrigées </h2>
+                    {% comment %} <form class=" p-4 shadow" style="width: 80%;">
                         <div class="mb-3">
                             <label for="nom" class="form-label">Fillière</label>
                             <input type="text" name="Matriclue" class="form-control" id="nom" required>
@@ -109,7 +109,50 @@
                             <button type="submit" class="btn btn-warning shadow">
                                 <i class="bi bi-send-fill"></i> Envoyer</button>
                         </div>
+                    </form> {% endcomment %}
+                    {% if messages %}
+                    <div class="alert-messages">
+                        {% for message in messages %}
+                            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                    <form method="post" enctype="multipart/form-data" class="form-control" class=" p-4 shadow">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="form-group">
+                            {% comment %} <input type="file" id="fileInput" name="dossier" webkitdirectory directory multiple /> {% endcomment %}
+                            <input multiple type="file" name="dossier" id="id_dossier" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
                     </form>
+                    {% if message %}
+                        <p>{{ message }}</p>
+                    {% endif %}
+                    <script>
+                        document.getElementById('fileInput').addEventListener('change', function(event) {
+                            let files = event.target.files;
+                            let formData = new FormData();
+                            for (let file of files) {
+                                formData.append('dossier', file);
+                            }
+                            document.getElementById('uploadForm').onsubmit = function() {
+                                for (let [key, value] of formData.entries()) {
+                                    this.appendChild(new File([value], key));
+                                }
+                            }
+                        });
+                    </script>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var dateField = document.getElementById('date_field');
+                            var now = new Date();
+                            var formattedDate = now.toISOString().slice(0, 19).replace('T', ' ');
+                            dateField.value = formattedDate;
+                        });
+                    </script>
                   </div>
         </section>
                                            

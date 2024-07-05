@@ -25,3 +25,17 @@ class EtudiantModels(CustomUser):
         if not self.pk and self.password:
             self.password = make_password(self.password)
         super(EtudiantModels, self).save(*args, **kwargs)
+
+
+# models.py
+
+
+class StudentFile(models.Model):
+    student = models.ForeignKey(EtudiantModels, on_delete=models.CASCADE, related_name='student_files', default=None, blank=True, null=True)
+    fichier = models.FileField(upload_to='student_files/',max_length=255)
+    module = models.CharField(max_length=100, verbose_name='Module',default='')
+
+    telechargement_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.student.username} - {self.fichier.name}"

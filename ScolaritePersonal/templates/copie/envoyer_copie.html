@@ -24,7 +24,13 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="{% url 'ScolaritePersonal:envoyer' %}">
                 <i class="bi bi-files"></i>
-                <span>Envoyer copies</span>
+                <span>Envoyer|Enseignant</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'ScolaritePersonal:send_student' %}">
+                <i class="bi bi-files"></i>
+                <span>Envoyer|Etudiant</span>
             </a>
         </li>
         <li class="nav-item">
@@ -105,15 +111,41 @@
                                 <i class="bi bi-send-fill"></i> Envoyer</button>
                         </div>
                     </form> {% endcomment %}
+                    {% if messages %}
+                        <div class="alert-messages">
+                            {% for message in messages %}
+                                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                     <form method="post" enctype="multipart/form-data" class="form-control" class=" p-4 shadow">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <div class="form-group">
-                           
+                            {% comment %} <input type="file" id="fileInput" name="dossier" webkitdirectory directory multiple /> {% endcomment %}
                             <input multiple type="file" name="dossier" id="id_dossier" class="form-control">
                         </div>
                         <button type="submit" class="btn btn-primary">Envoyer</button>
                     </form>
+                    {% if message %}
+                        <p>{{ message }}</p>
+                    {% endif %}
+                    <script>
+                        document.getElementById('fileInput').addEventListener('change', function(event) {
+                            let files = event.target.files;
+                            let formData = new FormData();
+                            for (let file of files) {
+                                formData.append('dossier', file);
+                            }
+                            document.getElementById('uploadForm').onsubmit = function() {
+                                for (let [key, value] of formData.entries()) {
+                                    this.appendChild(new File([value], key));
+                                }
+                            }
+                        });
+                    </script>
                     <script>
                         document.addEventListener('DOMContentLoaded', function() {
                             var dateField = document.getElementById('date_field');
@@ -134,6 +166,7 @@
                         });
                         </script>                        
                   </div>
+                  
         </section>
                                            
 </main><!-- End #main -->

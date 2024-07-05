@@ -26,7 +26,8 @@ class ScolariteModels(CustomUser):
         super(ScolariteModels, self).save(*args, **kwargs)
         
 class DossierImageTif(models.Model):
-    enseignant = models.ForeignKey(EnseignantModels, on_delete=models.CASCADE,default =None)
+    enseignant = models.ForeignKey(EnseignantModels, on_delete=models.CASCADE,default =None,null=True)
+    scolarite = models.ForeignKey(ScolariteModels, on_delete=models.CASCADE, default='', blank=True, null=True)
     
     enseignant_nom = models.CharField(max_length=100,default='')
     enseignant_prenom = models.CharField(max_length=100,default='')

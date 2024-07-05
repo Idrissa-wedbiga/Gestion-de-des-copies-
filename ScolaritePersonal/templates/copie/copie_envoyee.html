@@ -25,7 +25,13 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="{% url 'ScolaritePersonal:envoyer' %}">
                 <i class="bi bi-files"></i>
-                <span>Envoyer copies</span>
+                <span>Envoyer|Enseignant</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'ScolaritePersonal:send_student' %}">
+                <i class="bi bi-files"></i>
+                <span>Envoyer|Etudiant</span>
             </a>
         </li>
         <li class="nav-item">
@@ -71,15 +77,13 @@
 
     <section class="section dashboard">
         <div class="row">
-    
-            <!-- Left side columns -->
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-12">
                         <div class="card recent-sales overflow-auto">
                             <div class="card-body">
-                                <h5 class="card-title">Copies envoyées </h5>
-                                <table class="table table-borderless ">
+                                <h5 class="card-title">Copies envoyées</h5>
+                                <table class="table table-borderless">
                                     <thead>
                                         <tr>
                                             <th scope="col">Promotion & Année</th>
@@ -87,7 +91,7 @@
                                             <th scope="col">Niveau</th>
                                             <th scope="col">Nombre de copies</th>
                                             <th scope="col">Nom Enseignant</th>
-                                            <th scope="col">Prenom(s) Enseignant</th>
+                                            <th scope="col">Prénom(s) Enseignant</th>
                                             <th scope="col">Téléchargement</th>
                                             <th scope="col">Date d'envoi</th>
                                         </tr>
@@ -97,12 +101,16 @@
                                         <tr>
                                             <th scope="row">{{ copie.promotion }}</th>
                                             <td>{{ copie.module }}</td>
-                                            <td>{{ copie.niveau }}
+                                            <td>{{ copie.niveau }}</td>
                                             <td>{{ copie.nombre }}</td>
                                             <td>{{ copie.enseignant.username }}</td>
-                                            <td> {{ copie.enseignant.prenom }}</td>
+                                            <td>{{ copie.enseignant.prenom }}</td>
                                             <td><a href="{{ copie.dossier.url }}" class="badge bg-success" download>Télécharger</a></td>
                                             <td>{{ copie.date }}</td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="8">Aucune copie trouvée.</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -117,7 +125,6 @@
                                             <a href="?page={{ page_obj.previous_page_number }}" class="page-link">Suivante</a>
                                         </li>
                                         {% endif %}
-                                        
                                         {% if page_obj.has_next %}
                                         <li class="paginate_button page-item">
                                             <a href="?page={{ page_obj.next_page_number }}" class="page-link">Précédente</a>
@@ -128,13 +135,12 @@
                                         {% endif %}
                                     </ul>
                                     <span class="ml-auto">Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.</span>
-                                </div>  
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
         </div>
     </section>
     

@@ -15,7 +15,7 @@ from django.contrib.auth import get_user_model
 
 
 @csrf_protect
-#@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_superuser)
 def index(request):
 
     return render(request, "userprincipale/index.html")
@@ -41,6 +41,8 @@ def enseignant(request):
 
     
 def ajouter(request):
+    error=False
+    message=""
     if request.method == 'POST':
         # Récupérer les données soumises par l'utilisateur
         matricule = request.POST.get('matricule')
@@ -127,8 +129,9 @@ def scolarity(request):
     message=messages.get_messages(request)
     scolarites = ScolariteModels.objects.all()
 
-    context = {'scolarites': scolarites, 'message': message}
-    return render(request, "Scolarite/scolarity.html", context)
+    context = {'scolarites': scolarites, 
+               'message': message}
+    return render(request, 'Scolarite/scolarity.html', context)
 
 def sc_ajouter(request):
    # Verifier si le formulaire a ete soumis
