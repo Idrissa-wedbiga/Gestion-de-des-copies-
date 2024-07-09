@@ -12,6 +12,7 @@ class EnseignantForm(forms.ModelForm):
     class Meta:
         model = EnseignantModels
         fields = ['matricule', 'username', 'prenom', 'specialite', 'email']
+        
 class EtudiantForm(forms.ModelForm):
     class Meta:
         model = EtudiantModels

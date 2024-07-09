@@ -6,6 +6,7 @@ app_name='userprincipale'
 urlpatterns=[
     path('',views.index,name='index'),
     path('usersprofile/', views.usersprofile, name='usersprofile'),
+    path('admin_static/',views.Admin_static, name='admin_static'),
     
     #Enseignant
     path('Enseignant/', views.enseignant, name='enseignant'),
@@ -16,6 +17,7 @@ urlpatterns=[
     #Scolarité
     path('Scolarite/', views.scolarity, name='scolarity'),
     path('sc_ajouter/', views.sc_ajouter, name='sc_ajouter'),
+    path('update/<str:matricule>/', views.sc_update, name='update'),
     path('sc_editer/<str:matricule>/', views.sc_editer, name='sc_editer'),
     path('sc_supprimer/<str:matricule>/', views.sc_supprimer, name='sc_supprimer'),
     

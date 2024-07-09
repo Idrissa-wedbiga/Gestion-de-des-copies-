@@ -35,7 +35,8 @@ def enseignant(request):
 
     message = messages.get_messages(request)
 
-    context = {'enseignants': enseignants, 'message': message}
+    context = {'enseignants': enseignants, 
+               'message': message}
     return render(request, "Enseignant/enseignant.html", context)
 
 
@@ -113,6 +114,7 @@ def supprimer(request, matricule):
         enseignant = get_object_or_404(EnseignantModels, matricule=matricule)
         enseignant.delete()
     return HttpResponseRedirect(reverse('userprincipale:enseignant'))
+
 #scolarite
 def scolarity(request):
     query=request.GET.get('qs')
@@ -121,17 +123,16 @@ def scolarity(request):
             Q(matricule__icontains=query) |
             Q(username__icontains=query) |
             Q(prenom__icontains=query) |
+            Q(fonction__icontains=query) |
             Q(etablissement__icontains=query)
         )
     else:
         scolarites = ScolariteModels.objects.all()
         
     message=messages.get_messages(request)
-    scolarites = ScolariteModels.objects.all()
-
-    context = {'scolarites': scolarites, 
-               'message': message}
-    return render(request, 'Scolarite/scolarity.html', context)
+    
+    context = {'scolarites': scolarites,'message': message}
+    return render(request, "Scolarite/scolarity.html", context)
 
 def sc_ajouter(request):
    # Verifier si le formulaire a ete soumis
@@ -191,9 +192,22 @@ def sc_ajouter(request):
     
 
 def sc_editer(request, matricule):
-    # Récupérer la scolarité à modifier
     scolarite = get_object_or_404(ScolariteModels, matricule=matricule)
     
+    if request.method == 'POST':
+        # Créer un formulaire de modification et pré-remplir avec les données actuelles de la scolarité
+        form = ScolariteForm(request.POST, instance=scolarite)
+        if form.is_valid():
+            form.save()
+            return redirect('userprincipale:scolarite')
+    else:
+        # Afficher le formulaire pré-rempli
+        form = ScolariteForm(instance=scolarite)
+    
+    return render(request, 'Scolarite/sc_edit.html', {'form': form})
+
+def sc_update(request, matricule):
+    scolarite = get_object_or_404(ScolariteModels, matricule=matricule)
     if request.method == 'POST':
         # Créer un formulaire de modification et pré-remplir avec les données actuelles de la scolarité
         form = ScolariteForm(request.POST, instance=scolarite)
@@ -205,6 +219,7 @@ def sc_editer(request, matricule):
         form = ScolariteForm(instance=scolarite)
     
     return render(request, 'Scolarite/sc_edit.html', {'form': form})
+    
 
 def sc_supprimer(request, matricule):
     
@@ -241,3 +256,18 @@ def etudiant(request):
 
     context = {'etudiants': etudiants, 'message': message}
     return render(request, "Etudiant/etudiant_list.html", context)
+
+def Admin_static(request):
+    # Récupérer le nombre d'enseignants, de scolarités et d'étudiants
+    nombre_enseignants = EnseignantModels.objects.count()
+    nombre_etudiants = EtudiantModels.objects.count()
+    nombre_scolarites = ScolariteModels.objects.count()
+
+    # Passer les données au template
+    context = {
+        'nombre_enseignants': nombre_enseignants,
+        'nombre_etudiants': nombre_etudiants,
+        'nombre_scolarites': nombre_scolarites,
+    }
+    print(context)
+    return render(request, "userprincipale/index.html", context)

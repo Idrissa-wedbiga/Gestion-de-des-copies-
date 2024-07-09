@@ -182,39 +182,46 @@ def upload_and_link_files(request):
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             files = request.FILES.getlist('fichier')
+            module = form.cleaned_data['module']
+            upload_dir = os.path.join(settings.MEDIA_ROOT, 'student_files')
+
+            # Créer le répertoire si nécessaire
+            if not os.path.exists(upload_dir):
+                os.makedirs(upload_dir)
+
             for file in files:
-                file_path = os.path.join(settings.MEDIA_ROOT, 'uploads', file.module)
+                file_path = os.path.join(upload_dir, file.name)  # Assurez-vous du chemin ici
 
                 with open(file_path, 'wb+') as destination:
                     for chunk in file.chunks():
                         destination.write(chunk)
 
                 if zipfile.is_zipfile(file_path):
+                    extracted_path = os.path.join(upload_dir, 'extracted')
                     with zipfile.ZipFile(file_path, 'r') as zip_ref:
-                        zip_ref.extractall(os.path.join(settings.MEDIA_ROOT, 'uploads', 'extracted'))
+                        zip_ref.extractall(extracted_path)
                     os.remove(file_path)  # Supprimez le fichier zip après extraction
 
-                    extracted_path = os.path.join(settings.MEDIA_ROOT, 'uploads', 'extracted')
                     for filename in os.listdir(extracted_path):
                         if filename.endswith('.pdf'):
-                            link_file_to_student(os.path.join('uploads', 'extracted', filename))
+                            link_file_to_student(os.path.join('student_files', 'extracted', filename), module)
                 else:
                     if file.name.endswith('.pdf'):
-                        link_file_to_student(file_path)
+                        link_file_to_student(os.path.join('student_files', file.name), module)
 
             return redirect('ScolaritePersonal:send_student')  # Rediriger vers le tableau de bord ou une autre page après l'upload
     else:
         form = UploadFileForm()
     return render(request, 'copie/Student_copie.html', {'form': form})
 
-def link_file_to_student(file_path):
+def link_file_to_student(file_path, module):
     filename = os.path.basename(file_path)
     matricule_match = re.search(r'([EN]\d{11})', filename)  # Match matricules commençant par E ou N suivis de 11 chiffres
     if matricule_match:
         matricule = matricule_match.group(1)
         try:
             student = EtudiantModels.objects.get(matricule=matricule)
-            student_file = StudentFile(student=student, fichier=os.path.join('student_files', filename))
+            student_file = StudentFile(student=student, fichier=file_path, module=module)
             student_file.save()
         except EtudiantModels.DoesNotExist:
             # Gérez le cas où aucun étudiant avec ce matricule n'existe
