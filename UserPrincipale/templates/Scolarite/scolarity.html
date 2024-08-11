@@ -106,7 +106,7 @@
                         <td>{{ scolarite.etablissement }}</td>
                         <td>{{ scolarite.email }}</td>
                         <td>
-                            <a href="{% url 'userprincipale:update' scolarite.matricule %}" class="btn btn-warning shadow btn-sm">
+                            <a href="{% url 'userprincipale:sc_editer' scolarite.matricule %}" class="btn btn-warning shadow btn-sm">
                                 <i class="bi bi-pencil"></i> Modifier
                             </a>
                             <form action="{% url 'userprincipale:sc_supprimer' scolarite.matricule %}" method="POST" class="d-inline">

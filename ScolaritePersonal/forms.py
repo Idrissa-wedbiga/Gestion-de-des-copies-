@@ -42,16 +42,18 @@ class DossierImageForms(forms.Form):
     module = forms.ChoiceField(choices=MODULE_CHOICES)
     niveau = forms.ChoiceField(choices=NIVEAU_CHOICES)
     nombre =forms.IntegerField(label='Nombre de copies')
-    enseignant_matricule = forms.CharField(max_length=100, label='Matricule')
-    #enseignant_nom = forms.CharField(max_length=100, label='Nom Enseignant', required=False)
-    #enseignant_prenom = forms.CharField(max_length=100, label='Prenom(s) Enseignant', required=False)
+    enseignant_nom_prenom = forms.ModelChoiceField(
+        queryset=EnseignantModels.objects.all(),
+        to_field_name='matricule',
+        label="Enseignant (Nom et prénom)",
+        widget=forms.Select)
     
 
     date = forms.DateTimeField(initial=datetime.now, widget=forms.HiddenInput())  
     
-    def __init__(self, *args, **kwargs):
-        super(DossierImageForms, self).__init__(*args, **kwargs)
-        self.fields['enseignant_matricule'].choices = [(e.matricule, f"{e.username} {e.prenom}") for e in EnseignantModels.objects.all()]  
+    # def __init__(self, *args, **kwargs):
+    #     super(DossierImageForms, self).__init__(*args, **kwargs)
+    #     self.fields['enseignant_matricule'].choices = [(e.matricule, f"{e.username} {e.prenom}") for e in EnseignantModels.objects.all()]  
     class meta:
         model = DossierImageTif
         fields = ['dossier']
@@ -69,7 +71,6 @@ class UploadFileForm(forms.Form):
     ]
     module = forms.ChoiceField(choices=MODULE_CHOICES)
     
-    #telechargement_date = forms.DateTimeField(initial=datetime.now, widget=forms.HiddenInput()) 
     class meta:
         model: StudentFile
         fields = ['fichier']

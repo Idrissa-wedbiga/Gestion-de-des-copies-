@@ -205,20 +205,6 @@ def sc_editer(request, matricule):
         form = ScolariteForm(instance=scolarite)
     
     return render(request, 'Scolarite/sc_edit.html', {'form': form})
-
-def sc_update(request, matricule):
-    scolarite = get_object_or_404(ScolariteModels, matricule=matricule)
-    if request.method == 'POST':
-        # Créer un formulaire de modification et pré-remplir avec les données actuelles de la scolarité
-        form = ScolariteForm(request.POST, instance=scolarite)
-        if form.is_valid():
-            form.save()
-            return redirect('userprincipale:scolarity')
-    else:
-        # Afficher le formulaire pré-rempli
-        form = ScolariteForm(instance=scolarite)
-    
-    return render(request, 'Scolarite/sc_edit.html', {'form': form})
     
 
 def sc_supprimer(request, matricule):

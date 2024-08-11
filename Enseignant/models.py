@@ -36,5 +36,5 @@ class EnseignantModels(CustomUser):
 #     date = models.DateTimeField(auto_now_add=True)
 
 
-#     def __str__(self):
-#         return f"{self.dossier.name} - {self.enseignant.username} {self.enseignant.prenom}"
+    def __str__(self):
+       return f"{self.matricule}-{self.name}-{self.prenom}"
